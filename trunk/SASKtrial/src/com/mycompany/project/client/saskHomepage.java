@@ -62,13 +62,13 @@ public class saskHomepage implements EntryPoint {
 		final TabPanel homeTab = new TabPanel();
 		homeTab.add(new HTML("This is going to be the future home page of SASK."),"Home");
 		homeTab.add(treeMain,"Tree");
+		homeTab.add(new HTML("Bats Page"),"Bats");
+		homeTab.add(new HTML("Birds Page"),"Birds");
+		homeTab.add(new HTML("Ants Page"),"Ants");
 		rootPanel.add(homeTab, 195, 78);
 		homeTab.setSize("636px", "18px");
 		homeTab.selectTab(0);
 		
 		
-
-		
-
 	}
 }
