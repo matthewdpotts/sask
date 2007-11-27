@@ -1,26 +1,14 @@
 package com.mycompany.project.client;
 
 import com.google.gwt.core.client.EntryPoint;
-import com.google.gwt.user.client.Window;
-import com.google.gwt.user.client.ui.AbsolutePanel;
-import com.google.gwt.user.client.ui.Button;
-import com.google.gwt.user.client.ui.ClickListener;
 import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.HasHorizontalAlignment;
-import com.google.gwt.user.client.ui.HasVerticalAlignment;
-import com.google.gwt.user.client.ui.Hyperlink;
 import com.google.gwt.user.client.ui.Image;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.google.gwt.user.client.ui.SourcesTabEvents;
-import com.google.gwt.user.client.ui.TabBar;
-import com.google.gwt.user.client.ui.TabListener;
 import com.google.gwt.user.client.ui.TabPanel;
-import com.google.gwt.user.client.ui.Tree;
 import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.Widget;
-import com.google.gwt.user.client.ui.FlexTable;
 import com.mycompany.project.client.treeHome;
+
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -30,34 +18,14 @@ public class saskHomepage implements EntryPoint {
 	public void onModuleLoad() {
 		RootPanel.get();
 		RootPanel rootPanel = RootPanel.get();
-
-		final VerticalPanel homeVerticalPanel = new VerticalPanel();
-		rootPanel.add(homeVerticalPanel, 0, 0);
-		homeVerticalPanel.setSize("196px", "778px");
-		homeVerticalPanel.setStyleName("gwt-saskHomeVerticalPanel");
-
-		final Image image = new Image();
-		homeVerticalPanel.add(image);
-		image.setSize("196px", "215px");
-		image.setUrl("hummingbird.jpg");
-
-		final Label searchIt = new Label("Search It.");
-		homeVerticalPanel.add(searchIt);
-
-		final Label anaylzeIt = new Label("Analyze It.");
-		homeVerticalPanel.add(anaylzeIt);
-
-		final Label somethingIt = new Label("Something It.");
-		homeVerticalPanel.add(somethingIt);
-
-		final Label knowIt = new Label("Know It.");
-		homeVerticalPanel.add(knowIt);
+		rootPanel.setSize("1196px", "10000px");
 		
 		
 		final HTML html = new HTML("<a href = 'file:///C:/Documents%20and%20Settings/James%20Mcaul/Desktop/Attempted%20Deployment/loginManager/loginManager.html'>Login</a>");
 		rootPanel.add(html, 709, 0);
 		
-		treeHome treeMain = new treeHome();
+		final treeHome treeMain = new treeHome();
+
 
 		final TabPanel homeTab = new TabPanel();
 		homeTab.add(new HTML("This is going to be the future home page of SASK."),"Home");
@@ -65,8 +33,33 @@ public class saskHomepage implements EntryPoint {
 		homeTab.add(new HTML("Bats Page"),"Bats");
 		homeTab.add(new HTML("Birds Page"),"Birds");
 		homeTab.add(new HTML("Ants Page"),"Ants");
-		rootPanel.add(homeTab, 195, 78);
-		homeTab.setSize("636px", "18px");
+		rootPanel.add(homeTab, 195, 70);
+		homeTab.setSize("997px", "705px");
+
+		final Image humming = new Image();
+		rootPanel.add(humming, 0, 0);
+		humming.setSize("196px", "205px");
+		humming.setUrl("hummingbird.jpg");
+
+		final VerticalPanel verticalPanel = new VerticalPanel();
+		rootPanel.add(verticalPanel, 0, 204);
+		verticalPanel.setStyleName("gwt-saskHomeVerticalPanel");
+		verticalPanel.setSize("196px", "574px");
+
+		final Label label = new Label("Search It.");
+		verticalPanel.add(label);
+		verticalPanel.setCellHeight(label, "40px");
+
+		final Label analLabel = new Label("Analyze It.");
+		verticalPanel.add(analLabel);
+		verticalPanel.setCellHeight(analLabel, "40px");
+
+		final Label sometLabel = new Label("Something It.");
+		verticalPanel.add(sometLabel);
+		verticalPanel.setCellHeight(sometLabel, "40px");
+
+		final Label knowItLabel = new Label("Know It.");
+		verticalPanel.add(knowItLabel);
 		homeTab.selectTab(0);
 		
 		

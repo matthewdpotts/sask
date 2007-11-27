@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project name="ImageViewer" default="all" basedir="C:\Documents and Settings\James Mcaul\workspace\SASKtrial">
+	<description>
+		This is build file for GWT module 'com.mycompany.project.login.loginManager' deployment.
+		GWT Designer generates it each time when you initiate deployment.
+		
+		You can use this file later for manual deployment, but keep in mind, that
+		classpath is hardcoded in it, so after changes in classpath you should
+		regenerate build file.
+	</description>
+
+	<property name="gwt.home" value="C:\GWT\gwt-windows-1.4.60" />
+	<property name="gwt.module.id" value="com.mycompany.project.login.loginManager" />
+	<property name="war.name" value="loginManager.war" />
+
+	<target name="jars" description="Package up the module project and required projects as jars">
+		<delete dir="@dot" />
+		<mkdir dir="@dot/${gwt.module.id}/WEB-INF/lib" />
+		<!--=== SASKtrial ===-->
+		<jar destfile="@dot/${gwt.module.id}/WEB-INF/lib/SASKtrial.jar">
+			<fileset dir="C:/Documents and Settings/James Mcaul/workspace/SASKtrial/src">
+				<include name="**"/>
+			</fileset>
+			<fileset dir="C:/Documents and Settings/James Mcaul/workspace/SASKtrial/bin">
+				<include name="**/*.class"/>
+			</fileset>
+		</jar>		
+	</target>
+
+	<target name="gwt-compile" description="Compile to JavaScript">
+		<java classname="com.google.gwt.dev.GWTCompiler" fork="yes" failonerror="true" maxmemory="64m">
+			<classpath>
+				<pathelement location="C:/Documents and Settings/James Mcaul/workspace/SASKtrial/src" />
+				<pathelement location="C:/Documents and Settings/James Mcaul/workspace/.metadata/.plugins/com.swtdesigner.gwt/gwt-user-patch.jar" />
+				<pathelement location="C:/Documents and Settings/James Mcaul/workspace/SASKtrial/bin" />
+				<pathelement location="C:/GWT/gwt-windows-1.4.60/gwt-user.jar" />
+				<pathelement location="C:/GWT/gwt-windows-1.4.60/gwt-dev-windows.jar" />
+			</classpath>
+			<arg value="-style"/>
+			<arg value="OBFUSCATED"/>
+			<arg value="-out" />
+			<arg file="@dot" />
+			<arg value="${gwt.module.id}" />
+		</java>
+	</target>
+
+	<target name="web-xml">
+		<mkdir dir="@dot/${gwt.module.id}/WEB-INF" />
+		<echo file="@dot/${gwt.module.id}/WEB-INF/web.xml"><![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+<web-app>
+
+</web-app>
+]]></echo>
+	</target>
+
+	<target name="war" depends="jars, gwt-compile, web-xml">
+		<delete file="${war.name}" />
+		<copy file="${gwt.home}/gwt-servlet.jar" todir="@dot/${gwt.module.id}/WEB-INF/lib" />
+		<jar destfile="${war.name}" basedir="@dot/${gwt.module.id}" duplicate="preserve" />
+		<delete dir="@dot" />
+	</target>
+	
+	<target name="deploy" depends="war">
+		<move file="${war.name}" todir="C:/Documents and Settings/James Mcaul/Desktop/Attempted Deployment" />
+	</target>
+
+	<target name="all" depends="deploy" />
+
+</project>

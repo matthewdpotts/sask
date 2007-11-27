@@ -303,3 +303,6 @@ a:visited {
 	border: lightgreen;
 	font-size: smaller;
 }
+.gwt-Label.treepages {
+	font-size: 8px;
+}
