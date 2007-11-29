@@ -16,7 +16,7 @@ public class tree2 extends Composite {
 		final Grid grid = new Grid();
 		flowPanel.add(grid);
 		grid.setBorderWidth(1);
-		grid.resize(17, 7);
+		grid.resize(18, 7);
 
 		final Label subplotLabel = new Label("Subplot");
 		grid.setWidget(0, 0, subplotLabel);
@@ -454,6 +454,79 @@ public class tree2 extends Composite {
 		final TextBox textBox_79 = new TextBox();
 		grid.setWidget(7, 6, textBox_79);
 		textBox_79.setWidth("100%");
+
+		final Label label_32 = new Label("");
+		grid.setWidget(17, 0, label_32);
+
+		final Grid grid_1 = new Grid();
+		flowPanel.add(grid_1);
+		grid_1.resize(17, 5);
+
+		final Label label_33 = new Label("Subplot");
+		grid_1.setWidget(0, 0, label_33);
+
+		final Label quadrateLabel_1 = new Label("Quadrate");
+		grid_1.setWidget(0, 1, quadrateLabel_1);
+
+		final Label areaCoveredLabel = new Label("% area covered by Skid trails");
+		grid_1.setWidget(0, 2, areaCoveredLabel);
+
+		final Label areaCoveredLabel_1 = new Label("% area covered by ferns");
+		grid_1.setWidget(0, 3, areaCoveredLabel_1);
+
+		final Label areaCoveredLabel_2 = new Label("% area covered by bare soil");
+		grid_1.setWidget(0, 4, areaCoveredLabel_2);
+
+		final Label label_34 = new Label("1");
+		grid_1.setWidget(1, 0, label_34);
+
+		final Label label_35 = new Label("1");
+		grid_1.setWidget(2, 0, label_35);
+
+		final Label label_36 = new Label("1");
+		grid_1.setWidget(3, 0, label_36);
+
+		final Label label_37 = new Label("1");
+		grid_1.setWidget(4, 0, label_37);
+
+		final Label label_38 = new Label("2");
+		grid_1.setWidget(5, 0, label_38);
+
+		final Label label_39 = new Label("2");
+		grid_1.setWidget(6, 0, label_39);
+
+		final Label label_40 = new Label("2");
+		grid_1.setWidget(7, 0, label_40);
+
+		final Label label_41 = new Label("2");
+		grid_1.setWidget(8, 0, label_41);
+
+		final Label label_42 = new Label("2");
+		grid_1.setWidget(9, 0, label_42);
+
+		final Label label_43 = new Label("3");
+		grid_1.setWidget(10, 0, label_43);
+
+		final Label label_44 = new Label("3");
+		grid_1.setWidget(11, 0, label_44);
+
+		final Label label_45 = new Label("3");
+		grid_1.setWidget(12, 0, label_45);
+
+		final Label label_46 = new Label("3");
+		grid_1.setWidget(13, 0, label_46);
+
+		final Label label_47 = new Label("4");
+		grid_1.setWidget(14, 0, label_47);
+
+		final Label label_48 = new Label("4");
+		grid_1.setWidget(15, 0, label_48);
+
+		final Label label_49 = new Label("4");
+		grid_1.setWidget(16, 0, label_49);
+
+		final Label label_50 = new Label("4");
+		grid_1.setWidget(17, 0, label_50);
 	}
 
 }
