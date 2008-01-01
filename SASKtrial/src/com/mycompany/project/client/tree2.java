@@ -3,8 +3,10 @@ package com.mycompany.project.client;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.Grid;
+import com.google.gwt.user.client.ui.HasHorizontalAlignment;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.TextBox;
+import com.google.gwt.user.client.ui.Button;
 
 public class tree2 extends Composite {
 
@@ -455,78 +457,321 @@ public class tree2 extends Composite {
 		grid.setWidget(7, 6, textBox_79);
 		textBox_79.setWidth("100%");
 
-		final Label label_32 = new Label("");
-		grid.setWidget(17, 0, label_32);
-
 		final Grid grid_1 = new Grid();
 		flowPanel.add(grid_1);
+		grid_1.setBorderWidth(1);
 		grid_1.resize(17, 5);
 
-		final Label label_33 = new Label("Subplot");
-		grid_1.setWidget(0, 0, label_33);
+		final Label subplot2Label = new Label("Subplot");
+		grid_1.setWidget(0, 0, subplot2Label);
+		grid_1.getCellFormatter().setHorizontalAlignment(0, 0, HasHorizontalAlignment.ALIGN_CENTER);
 
 		final Label quadrateLabel_1 = new Label("Quadrate");
 		grid_1.setWidget(0, 1, quadrateLabel_1);
 
-		final Label areaCoveredLabel = new Label("% area covered by Skid trails");
-		grid_1.setWidget(0, 2, areaCoveredLabel);
+		final Label areaSkidLabel = new Label("% Area Covered by Skid Trails");
+		grid_1.setWidget(0, 2, areaSkidLabel);
 
-		final Label areaCoveredLabel_1 = new Label("% area covered by ferns");
-		grid_1.setWidget(0, 3, areaCoveredLabel_1);
+		final Label areaFernLabel = new Label("% Area Covered by Ferns");
+		grid_1.setWidget(0, 3, areaFernLabel);
 
-		final Label areaCoveredLabel_2 = new Label("% area covered by bare soil");
-		grid_1.setWidget(0, 4, areaCoveredLabel_2);
+		final Label areaSoilLabel = new Label("% Area Covered by Bare Soil");
+		grid_1.setWidget(0, 4, areaSoilLabel);
 
-		final Label label_34 = new Label("1");
-		grid_1.setWidget(1, 0, label_34);
+		final Label subplotArea1_1 = new Label("1");
+		grid_1.setWidget(1, 0, subplotArea1_1);
+		
+		final Label subplotArea1_2 = new Label("1");
+		grid_1.setWidget(2, 0, subplotArea1_2);
+		
+		final Label subplotArea1_3 = new Label("1");
+		grid_1.setWidget(3, 0, subplotArea1_3);
+		
+		final Label subplotArea1_4 = new Label("1");
+		grid_1.setWidget(4, 0, subplotArea1_4);
+		
+		final Label subplotArea2_1 = new Label("2");
+		grid_1.setWidget(5, 0, subplotArea2_1);
+		
+		final Label subplotArea2_2 = new Label("2");
+		grid_1.setWidget(6, 0, subplotArea2_2);
+		
+		final Label subplotArea2_3 = new Label("2");
+		grid_1.setWidget(7, 0, subplotArea2_3);
+		
+		final Label subplotArea2_4 = new Label("2");
+		grid_1.setWidget(8, 0, subplotArea2_4);
+		
+		final Label subplotArea3_1 = new Label("3");
+		grid_1.setWidget(9, 0, subplotArea3_1);
+		
+		final Label subplotArea3_2 = new Label("3");
+		grid_1.setWidget(10, 0, subplotArea3_2);
+		
+		final Label subplotArea3_3 = new Label("3");
+		grid_1.setWidget(11, 0, subplotArea3_3);
+		
+		final Label subplotArea3_4 = new Label("3");
+		grid_1.setWidget(12, 0, subplotArea3_4);
+		
+		final Label subplotArea4_1 = new Label("4");
+		grid_1.setWidget(13, 0, subplotArea4_1);
+		
+		final Label subplotArea4_2 = new Label("4");
+		grid_1.setWidget(14, 0, subplotArea4_2);
+		
+		final Label subplotArea4_3 = new Label("4");
+		grid_1.setWidget(15, 0, subplotArea4_3);
+		
+		final Label subplotArea4_4 = new Label("4");
+		grid_1.setWidget(16, 0, subplotArea4_4);
 
-		final Label label_35 = new Label("1");
-		grid_1.setWidget(2, 0, label_35);
+		final Label quadrateArea1_1 = new Label("1");
+		grid_1.setWidget(1, 1, quadrateArea1_1);
+		
+		final Label quadrateArea1_2 = new Label("2");
+		grid_1.setWidget(2, 1, quadrateArea1_2);
+		
+		final Label quadrateArea1_3 = new Label("3");
+		grid_1.setWidget(3, 1, quadrateArea1_3);
+		
+		final Label quadrateArea1_4 = new Label("4");
+		grid_1.setWidget(4, 1, quadrateArea1_4);
+		
+		final Label quadrateArea2_1 = new Label("1");
+		grid_1.setWidget(5, 1, quadrateArea2_1);
+		
+		final Label quadrateArea2_2 = new Label("2");
+		grid_1.setWidget(6, 1, quadrateArea2_2);
+		
+		final Label quadrateArea2_3 = new Label("3");
+		grid_1.setWidget(7, 1, quadrateArea2_3);
+		
+		final Label quadrateArea2_4 = new Label("4");
+		grid_1.setWidget(8, 1, quadrateArea2_4);
+		
+		final Label quadrateArea3_1 = new Label("1");
+		grid_1.setWidget(9, 1, quadrateArea3_1);
+		
+		final Label quadrateArea3_2 = new Label("2");
+		grid_1.setWidget(10, 1, quadrateArea3_2);
+		
+		final Label quadrateArea3_3 = new Label("3");
+		grid_1.setWidget(11, 1, quadrateArea3_3);
+		
+		final Label quadrateArea3_4 = new Label("4");
+		grid_1.setWidget(12, 1, quadrateArea3_4);
+		
+		final Label quadrateArea4_1 = new Label("1");
+		grid_1.setWidget(13, 1, quadrateArea4_1);
+		
+		final Label quadrateArea4_2 = new Label("2");
+		grid_1.setWidget(14, 1, quadrateArea4_2);
+		
+		final Label quadrateArea4_3 = new Label("3");
+		grid_1.setWidget(15, 1, quadrateArea4_3);
+		
+		final Label quadrateArea4_4 = new Label("4");
+		grid_1.setWidget(16, 1, quadrateArea4_4);
 
-		final Label label_36 = new Label("1");
-		grid_1.setWidget(3, 0, label_36);
+		final TextBox areaSkid1_1 = new TextBox();
+		grid_1.setWidget(1, 2, areaSkid1_1);
+		areaSkid1_1.setWidth("100%");
+		
+		final TextBox areaSkid1_2 = new TextBox();
+		grid_1.setWidget(2, 2, areaSkid1_2);
+		areaSkid1_2.setWidth("100%");
+		
+		final TextBox areaSkid1_3 = new TextBox();
+		grid_1.setWidget(3, 2, areaSkid1_3);
+		areaSkid1_3.setWidth("100%");
+		
+		final TextBox areaSkid1_4 = new TextBox();
+		grid_1.setWidget(4, 2, areaSkid1_4);
+		areaSkid1_4.setWidth("100%");
+		
+		final TextBox areaSkid2_1 = new TextBox();
+		grid_1.setWidget(5, 2, areaSkid2_1);
+		areaSkid2_1.setWidth("100%");
+		
+		final TextBox areaSkid2_2 = new TextBox();
+		grid_1.setWidget(6, 2, areaSkid2_2);
+		areaSkid2_2.setWidth("100%");
+		
+		final TextBox areaSkid2_3 = new TextBox();
+		grid_1.setWidget(7, 2, areaSkid2_3);
+		areaSkid2_3.setWidth("100%");
+		
+		final TextBox areaSkid2_4 = new TextBox();
+		grid_1.setWidget(8, 2, areaSkid2_4);
+		areaSkid2_4.setWidth("100%");
+		
+		final TextBox areaSkid3_1 = new TextBox();
+		grid_1.setWidget(9, 2, areaSkid3_1);
+		areaSkid3_1.setWidth("100%");
+		
+		final TextBox areaSkid3_2 = new TextBox();
+		grid_1.setWidget(10, 2, areaSkid3_2);
+		areaSkid3_2.setWidth("100%");
+		
+		final TextBox areaSkid3_3 = new TextBox();
+		grid_1.setWidget(11, 2, areaSkid3_3);
+		areaSkid3_3.setWidth("100%");
+		
+		final TextBox areaSkid3_4 = new TextBox();
+		grid_1.setWidget(12, 2, areaSkid3_4);
+		areaSkid3_4.setWidth("100%");
+		
+		final TextBox areaSkid4_1 = new TextBox();
+		grid_1.setWidget(13, 2, areaSkid4_1);
+		areaSkid4_1.setWidth("100%");
+		
+		final TextBox areaSkid4_2 = new TextBox();
+		grid_1.setWidget(14, 2, areaSkid4_2);
+		areaSkid4_2.setWidth("100%");
+		
+		final TextBox areaSkid4_3 = new TextBox();
+		grid_1.setWidget(15, 2, areaSkid4_3);
+		areaSkid4_3.setWidth("100%");
+		
+		final TextBox areaSkid4_4 = new TextBox();
+		grid_1.setWidget(16, 2, areaSkid4_4);
+		areaSkid4_4.setWidth("100%");
 
-		final Label label_37 = new Label("1");
-		grid_1.setWidget(4, 0, label_37);
+		final TextBox areaFern1_1 = new TextBox();
+		grid_1.setWidget(1, 3, areaFern1_1);
+		areaFern1_1.setWidth("100%");
+		
+		final TextBox areaFern1_2 = new TextBox();
+		grid_1.setWidget(2, 3, areaFern1_2);
+		areaFern1_2.setWidth("100%");
+		
+		final TextBox areaFern1_3 = new TextBox();
+		grid_1.setWidget(3, 3, areaFern1_3);
+		areaFern1_3.setWidth("100%");
+		
+		final TextBox areaFern1_4 = new TextBox();
+		grid_1.setWidget(4, 3, areaFern1_4);
+		areaFern1_4.setWidth("100%");
+		
+		final TextBox areaFern2_1 = new TextBox();
+		grid_1.setWidget(5, 3, areaFern2_1);
+		areaFern2_1.setWidth("100%");
+		
+		final TextBox areaFern2_2 = new TextBox();
+		grid_1.setWidget(6, 3, areaFern2_2);
+		areaFern2_2.setWidth("100%");
+		
+		final TextBox areaFern2_3 = new TextBox();
+		grid_1.setWidget(7, 3, areaFern2_3);
+		areaFern2_3.setWidth("100%");
+		
+		final TextBox areaFern2_4 = new TextBox();
+		grid_1.setWidget(8, 3, areaFern2_4);
+		areaFern2_4.setWidth("100%");
+		
+		final TextBox areaFern3_1 = new TextBox();
+		grid_1.setWidget(9, 3, areaFern3_1);
+		areaFern3_1.setWidth("100%");
+		
+		final TextBox areaFern3_2 = new TextBox();
+		grid_1.setWidget(10, 3, areaFern3_2);
+		areaFern3_2.setWidth("100%");
+		
+		final TextBox areaFern3_3 = new TextBox();
+		grid_1.setWidget(11, 3, areaFern3_3);
+		areaFern3_3.setWidth("100%");
+		
+		final TextBox areaFern3_4 = new TextBox();
+		grid_1.setWidget(12, 3, areaFern3_4);
+		areaFern3_4.setWidth("100%");
+		
+		final TextBox areaFern4_1 = new TextBox();
+		grid_1.setWidget(13, 3, areaFern4_1);
+		areaFern4_1.setWidth("100%");
+		
+		final TextBox areaFern4_2 = new TextBox();
+		grid_1.setWidget(14, 3, areaFern4_2);
+		areaFern4_2.setWidth("100%");
+		
+		final TextBox areaFern4_3 = new TextBox();
+		grid_1.setWidget(15, 3, areaFern4_3);
+		areaFern4_3.setWidth("100%");
+		
+		final TextBox areaFern4_4 = new TextBox();
+		grid_1.setWidget(16, 3, areaFern4_4);
+		areaFern4_4.setWidth("100%");
 
-		final Label label_38 = new Label("2");
-		grid_1.setWidget(5, 0, label_38);
+		final TextBox areaSoil1_1 = new TextBox();
+		grid_1.setWidget(1, 4, areaSoil1_1);
+		areaSoil1_1.setWidth("100%");
+		
+		final TextBox areaSoil1_2 = new TextBox();
+		grid_1.setWidget(2, 4, areaSoil1_2);
+		areaSoil1_2.setWidth("100%");
+		
+		final TextBox areaSoil1_3 = new TextBox();
+		grid_1.setWidget(3, 4, areaSoil1_3);
+		areaSoil1_3.setWidth("100%");
+		
+		final TextBox areaSoil1_4 = new TextBox();
+		grid_1.setWidget(4, 4, areaSoil1_4);
+		areaSoil1_4.setWidth("100%");
+		
+		final TextBox areaSoil2_1 = new TextBox();
+		grid_1.setWidget(5, 4, areaSoil2_1);
+		areaSoil2_1.setWidth("100%");
+		
+		final TextBox areaSoil2_2 = new TextBox();
+		grid_1.setWidget(6, 4, areaSoil2_2);
+		areaSoil2_2.setWidth("100%");
+		
+		final TextBox areaSoil2_3 = new TextBox();
+		grid_1.setWidget(7, 4, areaSoil2_3);
+		areaSoil2_3.setWidth("100%");
+		
+		final TextBox areaSoil2_4 = new TextBox();
+		grid_1.setWidget(8, 4, areaSoil2_4);
+		areaSoil2_4.setWidth("100%");
+		
+		final TextBox areaSoil3_1 = new TextBox();
+		grid_1.setWidget(9, 4, areaSoil3_1);
+		areaSoil3_1.setWidth("100%");
+		
+		final TextBox areaSoil3_2 = new TextBox();
+		grid_1.setWidget(10, 4, areaSoil3_2);
+		areaSoil3_2.setWidth("100%");
+		
+		final TextBox areaSoil3_3 = new TextBox();
+		grid_1.setWidget(11, 4, areaSoil3_3);
+		areaSoil3_3.setWidth("100%");
+		
+		final TextBox areaSoil3_4 = new TextBox();
+		grid_1.setWidget(12, 4, areaSoil3_4);
+		areaSoil3_4.setWidth("100%");
+		
+		final TextBox areaSoil4_1 = new TextBox();
+		grid_1.setWidget(13, 4, areaSoil4_1);
+		areaSoil4_1.setWidth("100%");
+		
+		final TextBox areaSoil4_2 = new TextBox();
+		grid_1.setWidget(14, 4, areaSoil4_2);
+		areaSoil4_2.setWidth("100%");
+		
+		final TextBox areaSoil4_3 = new TextBox();
+		grid_1.setWidget(15, 4, areaSoil4_3);
+		areaSoil4_3.setWidth("100%");
+		
+		final TextBox areaSoil4_4 = new TextBox();
+		grid_1.setWidget(16, 4, areaSoil4_4);
+		areaSoil4_4.setWidth("100%");
+		
+		final Button submitButton = new Button("Submit");
+		flowPanel.add(submitButton);
+		
+		
 
-		final Label label_39 = new Label("2");
-		grid_1.setWidget(6, 0, label_39);
-
-		final Label label_40 = new Label("2");
-		grid_1.setWidget(7, 0, label_40);
-
-		final Label label_41 = new Label("2");
-		grid_1.setWidget(8, 0, label_41);
-
-		final Label label_42 = new Label("2");
-		grid_1.setWidget(9, 0, label_42);
-
-		final Label label_43 = new Label("3");
-		grid_1.setWidget(10, 0, label_43);
-
-		final Label label_44 = new Label("3");
-		grid_1.setWidget(11, 0, label_44);
-
-		final Label label_45 = new Label("3");
-		grid_1.setWidget(12, 0, label_45);
-
-		final Label label_46 = new Label("3");
-		grid_1.setWidget(13, 0, label_46);
-
-		final Label label_47 = new Label("4");
-		grid_1.setWidget(14, 0, label_47);
-
-		final Label label_48 = new Label("4");
-		grid_1.setWidget(15, 0, label_48);
-
-		final Label label_49 = new Label("4");
-		grid_1.setWidget(16, 0, label_49);
-
-		final Label label_50 = new Label("4");
-		grid_1.setWidget(17, 0, label_50);
 	}
 
 }
+	
