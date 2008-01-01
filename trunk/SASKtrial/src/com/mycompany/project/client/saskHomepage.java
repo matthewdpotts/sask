@@ -8,6 +8,8 @@ import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.TabPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.mycompany.project.client.treeHome;
+import com.google.gwt.user.client.ui.Button;
+import com.mycompany.project.client.BirdForm;
 
 
 /**
@@ -25,13 +27,14 @@ public class saskHomepage implements EntryPoint {
 		rootPanel.add(html, 709, 0);
 		
 		final treeHome treeMain = new treeHome();
+		final BirdForm birdMain = new BirdForm();
 
 
 		final TabPanel homeTab = new TabPanel();
 		homeTab.add(new HTML("This is going to be the future home page of SASK."),"Home");
 		homeTab.add(treeMain,"Tree");
 		homeTab.add(new HTML("Bats Page"),"Bats");
-		homeTab.add(new HTML("Birds Page"),"Birds");
+		homeTab.add(birdMain, "Birds");
 		homeTab.add(new HTML("Ants Page"),"Ants");
 		rootPanel.add(homeTab, 195, 70);
 		homeTab.setSize("997px", "705px");
@@ -61,6 +64,9 @@ public class saskHomepage implements EntryPoint {
 		final Label knowItLabel = new Label("Know It.");
 		verticalPanel.add(knowItLabel);
 		homeTab.selectTab(0);
+		
+		
+		
 		
 		
 	}

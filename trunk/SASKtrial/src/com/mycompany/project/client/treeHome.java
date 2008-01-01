@@ -15,6 +15,7 @@ import com.google.gwt.user.client.ui.SourcesTabEvents;
 import com.google.gwt.user.client.Window;
 import com.mycompany.project.client.tree1;
 import com.mycompany.project.client.tree2;
+import com.mycompany.project.client.tree3;
 
 
 public class treeHome extends Composite {
@@ -26,7 +27,8 @@ public class treeHome extends Composite {
 	    
 	    final tree1 treeForm1 = new tree1();
 	    final tree2 treeForm2 = new tree2();
-
+	    final tree3 treeForm3 = new tree3();
+	    
 	    final TabBar tabBar = new TabBar();
 	    verticalPanel.add(tabBar);
 
@@ -38,11 +40,22 @@ public class treeHome extends Composite {
 	    tabBar.addTabListener(new TabListener() {
 	      public void onTabSelected(SourcesTabEvents sender, int tabIndex) {
 	    	  if(tabIndex==0){
+	    		  verticalPanel.clear();
+	    		  verticalPanel.add(tabBar);
 	    		  verticalPanel.add(treeForm1);
 	    	  }else{
 	    			  if(tabIndex == 1){
+	    				  verticalPanel.clear();
+	    				  verticalPanel.add(tabBar);
 	    				  verticalPanel.add(treeForm2);
-	    			  }  
+	    			  }else{
+	    				  if(tabIndex == 2){
+	    						verticalPanel.clear();
+	    						verticalPanel.add(tabBar);
+	    						verticalPanel.add(treeForm3);
+	    				  }
+	    			  }
+	    			  
 	    		  }
 	    	  }
 	      
