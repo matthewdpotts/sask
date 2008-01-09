@@ -1,21 +1,10 @@
 package com.mycompany.project.client;
 
-import com.google.gwt.user.client.ui.AbsolutePanel;
-import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
-import com.google.gwt.user.client.ui.DeckPanel;
-import com.google.gwt.user.client.ui.FlowPanel;
-import com.google.gwt.user.client.ui.Grid;
-import com.google.gwt.user.client.ui.HTML;
-import com.google.gwt.user.client.ui.TabBar;
-import com.google.gwt.user.client.ui.TabPanel;
-import com.google.gwt.user.client.ui.VerticalPanel;
-import com.google.gwt.user.client.ui.TabListener;
 import com.google.gwt.user.client.ui.SourcesTabEvents;
-import com.google.gwt.user.client.Window;
-import com.mycompany.project.client.tree1;
-import com.mycompany.project.client.tree2;
-import com.mycompany.project.client.tree3;
+import com.google.gwt.user.client.ui.TabBar;
+import com.google.gwt.user.client.ui.TabListener;
+import com.google.gwt.user.client.ui.VerticalPanel;
 
 
 public class treeHome extends Composite {
