@@ -4,7 +4,7 @@ class Species(models.Model):
 	family = models.CharField(max_length=50)
 	genus = models.CharField(max_length=50)
 	species = models.CharField(max_length=50)
-	spcode = models.CharField(max_length=50)
+	spcode = models.CharField(max_length=50, unique=True)
 
 	def __unicode__(self):
                 return u'%s %s %s (%s)' % (self.family, self.genus, self.species, self.spcode)
