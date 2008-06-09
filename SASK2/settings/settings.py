@@ -1,5 +1,5 @@
 # Django settings for SASK1 project.
-
+#
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
 
