@@ -1,4 +1,4 @@
-from models import Plot, Subplot, Quadrate, PlotSurvey, SubplotSurvey, QuadrateSurvey
+from SASK2.plots.models import Plot, Subplot, Quadrate, PlotSurvey, SubplotSurvey, QuadrateSurvey
 from django import newforms as forms
 from django.newforms import models
 

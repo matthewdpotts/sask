@@ -2,12 +2,9 @@ from django.db import models
 from django.newforms import ModelForm
 from django import newforms as forms
 
-from plots.models import Plot
-from plots.models import Subplot
-from plots.models import Quadrate
-from species.models import Species
-from species.models import TreeSpecies
-from personnel.models import Person
+from SASK2.plots.models import Plot, Subplot, Quadrate
+from SASK2.species.models import Species, TreeSpecies
+from SASK2.personnel.models import Person
 
 class Tree(models.Model):
 	tag = models.PositiveIntegerField(unique=True)

@@ -1,4 +1,4 @@
-from models import Tree, TreeSurvey
+from SASK2.trees.models import Tree, TreeSurvey
 from django import newforms as forms
 
 class TreeForm(forms.ModelForm):

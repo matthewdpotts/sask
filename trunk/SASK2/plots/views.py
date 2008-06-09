@@ -1,7 +1,7 @@
 from django.shortcuts import render_to_response
 from django.db.models import Q
-from plots.models import Plot, Subplot, Quadrate, PlotSurvey, SubplotSurvey, QuadrateSurvey
-from forms import PlotForm, SubplotForm, QuadrateForm, PlotSurveyForm, SubplotSurveyForm, QuadrateSurveyForm
+from SASK2.plots.models import Plot, Subplot, Quadrate, PlotSurvey, SubplotSurvey, QuadrateSurvey
+from SASK2.plots.forms import PlotForm, SubplotForm, QuadrateForm, PlotSurveyForm, SubplotSurveyForm, QuadrateSurveyForm
 from django.core.urlresolvers import reverse
 from django.core import serializers
 from django.http import HttpResponse

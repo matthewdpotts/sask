@@ -2,9 +2,8 @@ from django.db.models import Q
 from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
-from models import Species
-from models import TreeSpecies
-from forms import SpeciesForm
+from SASK2.trees.models import Species, TreeSpecies
+from SASK2.species.forms import SpeciesForm
 
 def Home(request):
 	return render_to_response("species/home.html")
