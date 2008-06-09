@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block Title %} Data {% endblock %}
+{% block PageTitle %} Data {% endblock %}
+{% block Content %}
+	<div>
+		<a href="{% url ExportPlot %}">Download plot data (CSV)</a><br/>
+		<a href="{% url ExportSubplot %}">Download subplot data (CSV)</a><br/>
+		<a href="{% url ExportQuadrate %}">Download quadrate data (CSV)</a><br/>
+		<a href="{% url ExportPlotSurvey %}">Download plot survey data (CSV)</a><br/>
+		<a href="{% url ExportSubplotSurvey %}">Download subplot survey data (CSV)</a><br/>
+		<a href="{% url ExportQuadrateSurvey %}">Download quadrate survey data (CSV)</a><br/>
+		<a href="{% url ExportTrees %}">Download tree data (CSV)</a><br/>
+		<a href="{% url ExportTreeSurvey %}">Download tree survey data (CSV)</a><br/>
+		<a href="{% url ExportSpecies %}">Download species data (CSV)</a><br/>
+	</div>
+{% endblock %}

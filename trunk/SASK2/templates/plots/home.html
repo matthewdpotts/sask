@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block Title %} Plots {% endblock %}
+{% block PageTitle %} Plots {% endblock %}
+{% block Content %}
+	<div>
+		<a href="{% url AddPlot %}">Add a plot</a><br/>
+		<a href="{% url AddSubplot %}">Add a subplot</a><br/>
+		<a href="{% url AddQuadrate %}">Add a quadrate</a><br/>
+		<a href="{% url AddPlotSurvey %}">Add a plot survey</a><br/>
+		<a href="{% url AddSubplotSurvey %}">Add a subplot survey</a><br/>
+		<a href="{% url AddQuadrateSurvey %}">Add a quadrate survey</a><br/>
+
+	</div>
+{% endblock %}

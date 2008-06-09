@@ -1,0 +1,128 @@
+{% extends "base.html" %}
+{% block Title %} {{Title}} {% endblock %}
+{% block JavaScript %}
+window.onload = init;
+var PlotSelector, SubplotSelector, QuadrateSelector;
+/* Create a new XMLHttpRequest object to talk to the Web server */
+var xmlHttp = false;
+/*@cc_on @*/
+/*@if (@_jscript_version >= 5)
+try {
+  xmlHttp = new ActiveXObject("Msxml2.XMLHTTP");
+} catch (e) {
+  try {
+    xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+  } catch (e2) {
+    xmlHttp = false;
+  }
+}
+@end @*/
+
+if (!xmlHttp && typeof XMLHttpRequest != 'undefined') {
+	xmlHttp = new XMLHttpRequest();
+}
+
+function DoUrl(url){
+	// Open a connection to the server
+	xmlHttp.open("GET", url, false);
+	xmlHttp.send(null);
+	return xmlHttp.responseText;
+}
+
+function init(){
+	Form = document.getElementById("id_form");
+	{%if AddSubplot%}
+	Form.innerHTML = "Subplot:<select name=\"subplot\" id=\"id_subplot\"><option value=\"\" selected=\"selected\">---------</option></select><br/>" + Form.innerHTML;
+	{% endif %}
+	{% if AddPlot %}
+	Form.innerHTML = "Plot:<select name=\"plot\" id=\"id_plot\"><option value=\"\" selected=\"selected\">---------</option></select><br/>" + Form.innerHTML;
+	var PlotOptions = "<option value=\"\" selected=\"selected\">---------</option>";
+	var JSONText = DoUrl("{%url GetAllPlots%}");
+	var Data = eval('(' + JSONText + ')');
+	for(item in Data){
+		PlotOptions += "<option value=\""+Data[item]['pk']+"\">"+Data[item]['fields']['forest_reserve']+" " +Data[item]['fields']['latitude'] + " " + Data[item]['fields']['longitude'] + "</option>";
+	}
+	document.getElementById("id_plot").innerHTML = PlotOptions;
+	{% endif %}
+	PlotSelector = document.getElementById("id_plot");
+	SubplotSelector = document.getElementById("id_subplot");
+	QuadrateSelector = document.getElementById("id_quadrate");
+	if(PlotSelector == null || SubplotSelector == null){
+		return;
+	}
+	
+	PlotSelector.onchange = ChangeSubplotSelector;
+	if(QuadrateSelector != null){
+		SubplotSelector.onchange = ChangeQuadrateSelector;
+	}
+
+	var PlotID = PlotSelector.value;
+	if(PlotID == ""){
+		var SubplotOptions = "<option value=\"\" selected=\"selected\">---------</option>";
+		SubplotSelector.innerHTML = SubplotOptions;
+		if(QuadrateSelector != null){
+				var QuadrateOptions = "<option value=\"\" selected=\"selected\">---------</option>";
+				QuadrateSelector.innerHTML = QuadrateOptions;
+		}
+		return;
+	}
+	if(SubplotSelector != null){
+		ChangeSubplotSelector()
+	}
+	if(QuadrateSelector != null){
+		ChangeQuadrateSelector()
+	}
+}
+
+function ChangeSubplotSelector(){
+	var PlotID = PlotSelector.value;
+	var SubplotOptions = "";
+	if(PlotID == ""){
+		var SubplotOptions = "<option value=\"\" selected=\"selected\">---------</option>";
+		SubplotSelector.innerHTML = SubplotOptions;
+		if(QuadrateSelector != null){
+				var QuadrateOptions = "<option value=\"\" selected=\"selected\">---------</option>";
+				QuadrateSelector.innerHTML = QuadrateOptions;
+		}
+		return;
+	}
+	var JSONText = DoUrl("{%url GetSubplotsOfPlot %}?PlotID="+PlotID);
+	var Data = eval('(' + JSONText + ')');
+	for(item in Data){
+		SubplotOptions += "<option value=\""+Data[item]['pk']+"\">"+Data[item]['fields']['number']+"</option>";
+	}
+	SubplotSelector.innerHTML = SubplotOptions;
+}
+
+function ChangeQuadrateSelector(){
+	var SubplotID = SubplotSelector.value;
+	var QuadrateOptions = "<option value=\"\" selected=\"selected\">---------</option>";
+	if(SubplotID == ""){
+		QuadrateSelector.innerHTML = QuadrateOptions;
+		return;
+	}
+	var JSONText = DoUrl("{%url GetQuadratesOfSubplot %}?SubplotID="+SubplotID);
+	var Data = eval('(' + JSONText + ')');
+	for(item in Data){
+		QuadrateOptions += "<option value=\""+Data[item]['pk']+"\">"+Data[item]['fields']['number']+"</option>";
+	}
+	QuadrateSelector.innerHTML = QuadrateOptions;
+}
+
+{% endblock %}
+{% block PageTitle %} {{PageTitle}} {% endblock %}
+{% block Content %}
+	<div style="margin:0 auto;text-align:left;background-color:beige;border:1px orange solid;padding:5px;width:450px;">
+	<form method="POST" action="{{url}}" id="id_form">
+		{% for field in Form %}
+			{{field.label}}: {{field}}
+			{% for error in field.errors %}
+				 <span class="Error" style="color:red;">{{error}}</span>
+			{% endfor %}
+			<br/>
+		{% endfor %}
+		<input type="submit" value="{{ButtonLabel}}">
+	</form>
+	<b>{{Message}}</b>
+	</div>
+{% endblock %}

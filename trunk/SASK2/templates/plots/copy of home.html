@@ -1,0 +1,136 @@
+<html>
+<head>
+<script language="javascript">
+var xmlHttp
+function PlotSelect(id){
+	alert(id);
+}
+function PopulatePlots(){
+
+xmlHttp=GetXmlHttpObject();
+
+if (xmlHttp==null)
+  {
+  alert ("AJAX not supported");
+  return;
+  } 
+
+var url="/plots/PlotList";
+var latitude = document.getElementById("id_latitude").value;
+var longitude = document.getElementById("id_longitude").value;
+var width = document.getElementById("id_width").value;
+var length = document.getElementById("id_length").value;
+var forest_reserve = document.getElementById("id_forest_reserve").value;
+var compartment = document.getElementById("id_compartment").value;
+var baseline_bearing = document.getElementById("id_baseline_bearing").value;
+url=url+"?id="+'1';
+if(latitude.length>0){
+	url=url+"&latitude="+latitude;
+}
+if(longitude.length>0){
+	url=url+"&longitude="+longitude;
+}
+if(width.length>0){
+	url=url+"&width="+width;
+}
+if(length.length>0){
+	url=url+"&length="+length;
+}
+if(forest_reserve.length>0){
+	url=url+"&forest_reserve="+forest_reserve;
+}
+if(compartment.length>0){
+	url=url+"&compartment="+compartment;
+}
+if(baseline_bearing.length>0){
+	url=url+"&baseline_bearing="+baseline_bearing;
+}
+
+xmlHttp.onreadystatechange=stateChanged;
+xmlHttp.open("GET",url,true);
+xmlHttp.send(null);
+}
+
+function stateChanged()
+{ 
+if (xmlHttp.readyState==4)
+{ 
+document.getElementById('PlotList').innerHTML=xmlHttp.responseText;
+}
+}
+
+function GetXmlHttpObject()
+{
+var xmlHttp=null;
+try
+  {
+  // Firefox, Opera 8.0+, Safari
+  xmlHttp=new XMLHttpRequest();
+  }
+catch (e)
+  {
+  // Internet Explorer
+  try
+    {
+    xmlHttp=new ActiveXObject("Msxml2.XMLHTTP");
+    }
+  catch (e)
+    {
+    xmlHttp=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+  }
+return xmlHttp;
+}
+function init(){
+	PopulatePlots();
+}
+window.onload=init;
+</script>
+<LINK href="/SASK_media/css/plots/plots.css" rel="stylesheet" type="text/css">
+<LINK href="/SASK_media/css/base.css" rel="stylesheet" type="text/css">
+<title>SASK - Plots</title>
+</head>
+<body>
+<div id="center_column">
+	<div id="title">
+		Plots
+	</div>
+	<div>
+		<a href="plots">
+			add plot
+		</a>
+		<br/>
+		or
+		<br/>
+		select a plot to edit:
+	</div>
+	<div style="border:1px #336600 solid;width:275px;margin:0 auto;">
+
+		<table>
+			<tr>
+				<td colspan="2" style="text-align:left;">Filters:</td>
+			</tr>
+{% for field in plot_form %}
+			<tr>
+				<td>{{ field.label }} </td> <td>{{ field }} </td>
+			</tr>
+{% endfor %}
+		<tr>
+			<td colspan="2" style="text-align:right;"><input type="submit" value="apply filters" onclick="PopulatePlots();"/></td>
+		</tr>
+		</table>
+	</div>
+	
+	<div id="PlotList" style="border:2px black solid;height:230px;overflow:auto;">
+
+	</div>
+
+	<div id="SelectedPlot">
+	</div>
+
+</div>
+
+
+</body>
+</html>
+
