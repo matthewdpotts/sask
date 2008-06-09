@@ -6,6 +6,8 @@ from django.core.urlresolvers import reverse
 from django.core import serializers
 from django.http import HttpResponse
 
+#Test
+
 def home(request):
 	return render_to_response('plots/home.html')
 
