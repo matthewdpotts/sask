@@ -1,6 +1,6 @@
 from django.shortcuts import render_to_response
-from models import Tree, TreeSurvey
-from forms import TreeForm, TreeSurveyForm
+from SASK2.trees.models import Tree, TreeSurvey
+from SASK2.trees.forms import TreeForm, TreeSurveyForm
 from django.core.urlresolvers import reverse
 
 def Home(request):

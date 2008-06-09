@@ -2,7 +2,7 @@ from django.db import models
 from django.newforms import ModelForm
 from django import newforms as forms
         
-from personnel.models import Person
+from SASK2.personnel.models import Person
 
 class Plot(models.Model):
         SLOPE_POS= (
