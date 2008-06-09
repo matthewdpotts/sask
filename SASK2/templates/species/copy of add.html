@@ -1,0 +1,92 @@
+<html>
+<head>
+<script>
+
+var xmlHttp
+
+function showSpecies()
+{ 
+xmlHttp=GetXmlHttpObject();
+if (xmlHttp==null)
+  {
+  alert ("AJAX not supported");
+  return;
+  } 
+var url="list";
+var family = document.getElementById("id_family").value;
+var genus = document.getElementById("id_genus").value;
+var species = document.getElementById("id_species").value;
+var spcode = document.getElementById("id_spcode").value;
+url=url+"?id="+'1';
+if(family.length>0){
+	url=url+"&family="+family;
+}
+if(genus.length>0){
+	url=url+"&genus="+genus;
+}
+if(species.length>0){
+	url=url+"&species="+species;
+}
+if(spcode.length>0){
+	url=url+"&spcode="+spcode;
+}
+xmlHttp.onreadystatechange=stateChanged;
+xmlHttp.open("GET",url,true);
+xmlHttp.send(null);
+}
+
+function stateChanged() 
+{ 
+if (xmlHttp.readyState==4)
+{ 
+document.getElementById("txtHint").innerHTML=xmlHttp.responseText;
+}
+}
+
+function GetXmlHttpObject()
+{
+var xmlHttp=null;
+try
+  {
+  // Firefox, Opera 8.0+, Safari
+  xmlHttp=new XMLHttpRequest();
+  }
+catch (e)
+  {
+  // Internet Explorer
+  try
+    {
+    xmlHttp=new ActiveXObject("Msxml2.XMLHTTP");
+    }
+  catch (e)
+    {
+    xmlHttp=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+  }
+return xmlHttp;
+}
+</script>
+<LINK href="/SASK_media/css/species/add.css" rel="stylesheet" type="text/css">
+<LINK href="/SASK_media/css/base.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div id="center_column">
+	<div id="title">
+		Species
+	</div>
+<form method="post" action="." onkeypress="showSpecies()">
+<dl>
+{% for field in form %}
+    <dt>{{ field.label_tag }}</dt>
+    <dd>{{ field }}</dd>
+    {% if field.help_text %}<dd>{{ field.help_text }}</dd>{% endif %}
+    {% if field.errors %}<dd class="myerrors">{{ field.errors }}</dd>{% endif %}
+{% endfor %}
+</dl>
+<input type="submit" value="add species"/>
+</form>
+<p>
+<div id="txtHint"></div>
+</p>
+</body>
+</html>

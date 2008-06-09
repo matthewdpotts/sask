@@ -1,0 +1,7 @@
+{% if results %}
+      <ul>
+      {% for species in results %}
+        <li>{{ species|escape }}</l1>
+      {% endfor %}
+      </ul>
+{% endif %}

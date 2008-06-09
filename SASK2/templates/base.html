@@ -1,0 +1,31 @@
+<html>
+<head>
+	<title>{% block Title %}SASK Home{% endblock %}</title>
+	<LINK href="/SASK_media/css/base.css" rel="stylesheet" type="text/css">
+	{% block CSSLinks %}{% endblock %}
+	{% block JavaScriptLinks %}{% endblock %}
+	<script>
+	{% block JavaScript %}{% endblock %}
+	</script>
+</head>
+<body>
+	<div id="CenterColumn">
+		<div id="PageTitle">
+			{% block PageTitle %}SASK Home{% endblock %}
+		</div>
+		<div id="LinkBox">
+			<a href="{% url Home %}">home</a>
+			|
+			<a href="{% url PlotsHome %}">plots</a>
+			|
+			<a href="{% url SpeciesHome %}">species</a>
+			|
+			<a href="{% url TreesHome %}">trees</a>
+			|
+			<a href="{% url DataHome %}">data</a>
+		</div>
+		{% block Content %}{% endblock %}
+	</div>
+</body>
+</html>
+

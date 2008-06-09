@@ -1,0 +1,24 @@
+{% if PlotForms %}
+<table align="center">
+	<tr>
+		<td style="border:1px black solid;">latitude</td>
+		<td style="border:1px black solid;">longitude</td>
+		<td style="border:1px black solid;">baseline bearing</td>
+		<td style="border:1px black solid;">width</td>
+		<td style="border:1px black solid;">length</td>
+		<td style="border:1px black solid;">forest reserve</td>
+		<td style="border:1px black solid;">compartment</td>
+		<td style="border:1px black solid;"></td>
+	</tr>
+	{% for form in PlotForms %}
+	<form method="post" action="">
+	<tr onmouseover="this.style.background='#336600';this.style.color='white';" onmouseout="this.style.background='white';this.style.color='black';" onclick="PlotSelect({{plot.id}});">
+		{%for field in form%}
+		<td style="border-right:1px black solid;">{{field}}</td>
+		{% endfor %}
+		<td><input type="submit" value="edit"/></td>
+	</tr>
+	</form>
+	{% endfor %}
+</table>
+{% endif %}
