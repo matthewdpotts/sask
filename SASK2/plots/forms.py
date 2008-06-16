@@ -31,3 +31,9 @@ class QuadrateSurveyForm(forms.ModelForm):
 
 	class Meta:
 		model=QuadrateSurvey
+
+class UnlinkedPlotSurveyForm(forms.ModelForm):
+	
+	class Meta:
+		model=PlotSurvey
+		exclude = ('plot',)

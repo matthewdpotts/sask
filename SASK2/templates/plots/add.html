@@ -1,17 +1,46 @@
 {% extends "base.html" %}
-{% block Title %} {{Title}} {% endblock %}
-{% block PageTitle %} {{PageTitle}} {% endblock %}
+{% block Title %}Add New Plot Data{% endblock %}
+{% block PageTitle %}Add New Plot Data{% endblock %}
+{%block JavaScript%}
+function ToggleVisibility(id){
+	var Element = document.getElementById(id);
+	var SubmitButton = document.getElementById('SubmitButton');
+	if(Element.style.display == 'block'){
+          Element.style.display = 'none';
+	SubmitButton.value = 'Submit Plot Data (without survey)';
+	}
+       else{
+          Element.style.display = 'block';
+	SubmitButton.value = 'Submit Plot Data (with survey)';
+	}
+}
+{%endblock%}
 {% block Content %}
 	<div style="margin:0 auto;text-align:left;background-color:light-yellow;border:1px orange solid;padding:5px;width:400px;">
-	<form method="POST" action="{{url}}">
-		{% for field in Form %}
+	<form method="POST" action="{%url AddPlot%}">
+		
+		{% for field in PlotForm %}
 			{{field.label}}: {{field}}
 			{% for error in field.errors %}
 				 <span class="Error" style="color:red;">{{error}}</span>
 			{% endfor %}
 			<br/>
 		{% endfor %}
-		<input type="submit" value="{{ButtonLabel}}">
+		<br/>
+		<a style="text-decoration:underline;color:blue;cursor:pointer;cursor:hand;" onclick="ToggleVisibility('PlotSurveyForm');">show/hide this plot's first survey</a>
+		<br/>
+		<div id="PlotSurveyForm" style="display:{%if ShowSurvey%}block{%else%}none{%endif%};">
+		<br/>
+		{% for field in PlotSurveyForm %}
+			{{field.label}}: {{field}}
+			{% for error in field.errors %}
+				 <span class="Error" style="color:red;">{{error}}</span>
+			{% endfor %}
+			<br/>
+		{%endfor%}
+		</div>	
+		<br/>
+		<input type="submit" name="Submit" value="Submit Plot Data" id="SubmitButton">
 	</form>
 	<b>{{Message}}</b>
 	</div>
