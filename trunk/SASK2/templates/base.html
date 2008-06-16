@@ -14,15 +14,13 @@
 			{% block PageTitle %}SASK Home{% endblock %}
 		</div>
 		<div id="LinkBox">
-			<a href="{% url Home %}">home</a>
+			<a href="{% url Home %}">Home</a>
 			|
-			<a href="{% url PlotsHome %}">plots</a>
+			<a href="{% url Add %}">Add New Data</a>
 			|
-			<a href="{% url SpeciesHome %}">species</a>
+			<a href="{% url Edit %}">Edit Existing Data</a>
 			|
-			<a href="{% url TreesHome %}">trees</a>
-			|
-			<a href="{% url DataHome %}">data</a>
+			<a href="{% url Export %}">Export Data</a>
 		</div>
 		{% block Content %}{% endblock %}
 	</div>

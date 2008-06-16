@@ -10,9 +10,9 @@ ADMINS = (
 MANAGERS = ADMINS
 
 DATABASE_ENGINE = 'postgresql'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
-DATABASE_NAME = 'frim1'             # Or path to database file if using sqlite3.
-DATABASE_USER = 'frim_user1'             # Not used with sqlite3.
-DATABASE_PASSWORD = 'joshua'         # Not used with sqlite3.
+DATABASE_NAME = 'SASK'             # Or path to database file if using sqlite3.
+DATABASE_USER = 'brice'             # Not used with sqlite3.
+DATABASE_PASSWORD = 'password'         # Not used with sqlite3.
 DATABASE_HOST = ''             # Set to empty string for localhost. Not used with sqlite3.
 DATABASE_PORT = ''             # Set to empty string for default. Not used with sqlite3.
 

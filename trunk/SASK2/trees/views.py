@@ -3,44 +3,24 @@ from SASK2.trees.models import Tree, TreeSurvey
 from SASK2.trees.forms import TreeForm, TreeSurveyForm
 from django.core.urlresolvers import reverse
 
-def Home(request):
- 		return render_to_response('trees/home.html')
-
-def AddTree(request):
-	Title = "Add Tree"
-	PageTitle = Title
-	ButtonLabel = "add tree"
-	Message = ""
-	TreeInstance = Tree()
-	if request.POST:
-		Form = TreeForm(data = request.POST, instance = TreeInstance)
-		Matches = Tree.objects.filter(tag = Form.data['tag'])
-		if Form.is_valid() and len(Matches)==0:
-			SavedTree = Form.save()
-			Message = "Tree successfully added (%s)." % SavedTree
-			Form = TreeForm()
+def GetNewTreeSurveyForm(request):
+	Message = ''
+	if request.method == 'POST':
+		treeform = TreeForm(data = request.POST)
+		unlinkedtreesurveyform = UnlinkedTreeSurveyForm(data = request.POST)
+		if treeform.is_valid() and unlinkedtreesurveyform.is_valid():
+			tree = treeform.save()
+			treesurvey = unlinkedtreesurveyform.save(commit = False)
+			treesurvey.tree = tree
+			treesurvey.save()
+			return render_to_response('trees/NewTreeSurveyForm.html',{'Tree':tree,'TreeSurvey':TreeSurvey})
 		else:
-			Message = "There is an error in the form."
-			if len(Matches) > 0:
-				Form.errors['tag'] =  ["not unique"]
+			Message += 'Please check the data for errors.'
+			return render_to_response('trees/NewTreeSurveyForm.html',{'TreeForm':treeform,'TreeSurveyForm':unlinkedtreesurveyform,'Message':Message})
 	else:
-		Form = TreeForm(instance=TreeInstance)
-	return render_to_response('add.html',{'Form':Form, 'Message':Message,'Title':Title,'PageTitle':PageTitle,'ButtonLabel':ButtonLabel,'url':reverse("AddTree")})
+		treeform = TreeForm()
+		unlinkedtreesurveyform = UnlinkedTreeSurveyForm()
+		return render_to_response('trees/NewTreeSurveyForm.html',{'TreeForm':treeform,'TreeSurveyForm':unlinkedtreesurveyform})
 
-def AddTreeSurvey(request):
-	Title = "Add Tree Survey"
-	PageTitle = Title
-	ButtonLabel = "submit tree survey"
-	Message = ""
-	TreeSurveyInstance = TreeSurvey()
-	if request.POST:
-		Form = TreeSurveyForm(data = request.POST, instance = TreeSurveyInstance)
-		if Form.is_valid():
-			SavedTreeSurvey = Form.save()
-			Message = "Tree survey successfully added (%s)." % SavedTreeSurvey
-			Form = TreeSurveyForm()
-		else:
-			Message = "There is an error in the form."
-	else:
-		Form = TreeSurveyForm(instance=TreeSurveyInstance)
-	return render_to_response('add.html',{'Form':Form, 'Message':Message,'Title':Title,'PageTitle':PageTitle,'ButtonLabel':ButtonLabel,'url':reverse("AddTreeSurvey")})
+def NewTreeSurvey(request):
+	return render_to_response('trees/NewTreeSurvey.html')

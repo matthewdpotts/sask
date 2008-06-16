@@ -1,12 +1,65 @@
 from django.shortcuts import render_to_response
 from django.db.models import Q
 from SASK2.plots.models import Plot, Subplot, Quadrate, PlotSurvey, SubplotSurvey, QuadrateSurvey
-from SASK2.plots.forms import PlotForm, SubplotForm, QuadrateForm, PlotSurveyForm, SubplotSurveyForm, QuadrateSurveyForm
+from SASK2.plots.forms import * 
 from django.core.urlresolvers import reverse
 from django.core import serializers
 from django.http import HttpResponse
 
-#Test
+def AddPlot(request):
+	Message = ''
+	if request.method == 'POST':
+		if request.POST['Submit'] == 'Submit Plot Data (with survey)':
+			PSF = UnlinkedPlotSurveyForm(data=request.POST)
+			PF = PlotForm(data=request.POST)
+			if PF.is_valid() == False or PSF.is_valid() == False:
+				Message += 'Please check the data for errors.'
+				return render_to_response('plots/add.html',{'PlotForm':PF,'PlotSurveyForm':PSF,'Message':Message,'ShowSurvey':True})
+			else:
+				plot = PF.save()
+				plotsurvey = PSF.save(commit=False)
+				plotsurvey.plot = plot
+				plotsurvey.save()
+				Message += 'The plot and survey data were successfully added: %s' % plot
+				PF = PlotForm()
+				PSF = UnlinkedPlotSurveyForm()
+				return render_to_response('plots/add.html', {'PlotForm':PF,'PlotSurveyForm':PSF,'Message':Message})
+		elif request.POST['Submit'] == 'PlotlessSurvey':
+			PSF = UnlinkedPlotSurveyForm(data=request.POST)
+			PF = PlotForm()
+			return render_to_response('plots/add.html', {'Message':'ok','PlotForm':PF,'PlotSurveyForm':PSF,'Message':Message,'ShowSurvey':True})
+		else:
+			PF = PlotForm(data=request.POST)
+			if PF.is_valid():
+				plot = PF.save()
+				Message += 'Plot successfully saved: %s' % plot 
+				PF = PlotForm()
+				PSF = UnlinkedPlotSurveyForm()
+				return render_to_response('plots/add.html',{'PlotForm':PF,'PlotSurveyForm':PSF,'Message':Message})
+			else:
+				Message += 'Please check the data for errors.'
+				PSF = UnlinkedPlotSurveyForm()
+				return render_to_response('plots/add.html',{'PlotForm':PF,'PlotSurveyForm':PSF,'Message':Message})
+	else:
+		PF = PlotForm()
+		PSF = UnlinkedPlotSurveyForm()	
+	return render_to_response('plots/add.html',{'PlotForm':PF,'PlotSurveyForm':PSF,'Message':Message})
+
+def AddPlotSurvey(request):
+	Message = ''
+	if request.method == 'POST':
+		PSF = PlotSurveyForm(data=request.POST)
+		if PSF.is_valid():
+			plotsurvey = PSF.save()
+			Message += 'Plot survey successfully added to plot (%s)' % plotsurvey.plot
+			PSF = PlotSurveyForm()
+			return render_to_response('plots/addsurvey.html', {'PlotSurveyForm':PSF,'Message':Message})
+		else:
+			Message += 'Please review the data for errors.'
+			return render_to_response('plots/addsurvey.html', {'PlotSurveyForm':PSF,'Message':Message})
+	else:
+		PSF = PlotSurveyForm()
+		return render_to_response('plots/addsurvey.html', {'PlotSurveyForm':PSF,'Message':Message})
 
 def home(request):
 	return render_to_response('plots/home.html')
@@ -56,7 +109,7 @@ def GetQuadratesOfSubplot(request):
 	TheSubplot = Subplot.objects.get(id=SubplotID)
 	data = serializers.serialize("json", Quadrate.objects.filter(subplot=TheSubplot))
 	return HttpResponse(data, mimetype="application/javascript")
-
+"""
 def AddPlot(request):
 	Title = "Add Plot"
 	PageTitle = Title
@@ -74,7 +127,7 @@ def AddPlot(request):
 	else:
 		Form = PlotForm(instance=PlotInstance)
 	return render_to_response('add.html',{'Form':Form, 'Message':Message,'Title':Title,'PageTitle':PageTitle,'ButtonLabel':ButtonLabel,'url':reverse("AddPlot")})
-
+"""
 def AddSubplot(request):
 	Title = "Add subplot"
 	PageTitle = Title
@@ -110,7 +163,7 @@ def AddQuadrate(request):
 	else:
 		Form = QuadrateForm(instance=QuadrateInstance)
 	return render_to_response('add.html',{'AddPlot':'True','Form':Form, 'Message':Message,'Title':Title,'PageTitle':PageTitle,'ButtonLabel':ButtonLabel,'url':reverse("AddQuadrate")})
-
+"""
 def AddPlotSurvey(request):
 	Title = "Plot Survey"
 	PageTitle = Title
@@ -128,7 +181,7 @@ def AddPlotSurvey(request):
 	else:
 		Form = PlotSurveyForm(instance=PlotSurveyInstance)
 	return render_to_response('add.html',{'Form':Form, 'Message':Message,'Title':Title,'PageTitle':PageTitle,'ButtonLabel':ButtonLabel,'url':reverse("AddPlotSurvey")})
-
+"""
 def AddSubplotSurvey(request):
 	Title = "Subplot Survey"
 	PageTitle = Title
