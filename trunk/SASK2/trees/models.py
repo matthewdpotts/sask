@@ -37,5 +37,9 @@ class TreeSurvey(models.Model):
 	canopy_width2 = models.DecimalField(max_digits = 15, decimal_places = 5)
 	measured_by = models.ForeignKey(Person, related_name="TreeSurvey_measured_by")
 	tallied_by = models.ForeignKey(Person, related_name="TreeSurvey_tallied_by")
-        def __unicode__(self):
-                return u'%s %s' % (self.tree, self.date)
+        
+	def __unicode__(self):
+                return u'%s' % (self.date)
+
+	class Meta:
+		pass
