@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block Title %}Add Survey Data for Existing Plot{% endblock %}
+{% block PageTitle %}Add Survey Data for Existing Plot{% endblock %}
+{%block JavaScript%}
+window.onload = CreateAddPlotLink
+function SubmitPlotlessSurvey(){
+	document.PlotSurveyForm.action="{%url AddPlot%}";
+	document.PlotSurveyForm.submit()
+}
+function CreateAddPlotLink(){
+	e = document.getElementById('id_plot');
+	e.innerHTML = "<option value=\"\" onclick=\"SubmitPlotlessSurvey();\" onchange=\"RestoreFormAction();\">Add Plot</option>" + e.innerHTML;
+}
+function RestoreFormAction(){
+	document.PlotSurveyForm.action="{%url AddPlotSurvey%}";
+}
+{%endblock%}
+{% block Content %}
+	<div style="margin:0 auto;text-align:left;background-color:light-yellow;border:1px orange solid;padding:5px;width:400px;">
+	<form method="POST" action="{%url AddPlotSurvey%}" name="PlotSurveyForm">
+		
+		{% for field in PlotSurveyForm %}
+			{{field.label}}: {{field}}
+			{% for error in field.errors %}
+				 <span class="Error" style="color:red;">{{error}}</span>
+			{% endfor %}
+			<br/>
+		{% endfor %}
+		<br/>
+		<input type="hidden" name="Submit" value="PlotlessSurvey"/>
+		<input type="submit" name="Submit" value="Submit Plot Survey" id="SubmitButton" onclick="RestoreFormAction();" onmouseover="RestoreFormAction()">
+	</form>
+	<b>{{Message}}</b>
+	</div>
+{% endblock %}

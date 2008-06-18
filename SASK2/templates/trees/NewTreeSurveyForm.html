@@ -1,0 +1,34 @@
+{%if Tree%}
+<tr>
+	<td>{{Tree.tag}}</td>
+	<td>{{Tree.plot}}</td>
+	<td>{{Tree.subplot}}</td>
+	<td>{{Tree.quadrate}}</td>
+	<td>{{Tree.species}}</td>
+	<td>{{TreeSurvey.dbh}}</td>
+	<td>{{TreeSurvey.comments}}</td>
+	<td>{{TreeSurvey.date}}</td>
+	<td>{{TreeSurvey.height}}</td>
+	<td>{{TreeSurvey.canopy_width1}}</td>
+	<td>{{TreeSurvey.canopy_width2}}</td>
+	<td>{{TreeSurvey.measured_by}}</td>
+	<td>{{TreeSurvey.tallied_by}}</td>
+</tr>
+{%else%}
+{% for field in TreeForm %}
+	{{field.label}}: {{field}}
+	{% for error in field.errors %}
+		<span class="Error" style="color:red;">{{error}}</span>
+	{% endfor %}
+	<br/>
+{% endfor %}
+{% for field in TreeSurveyForm %}
+	{{field.label}}: {{field}}
+	{% for error in field.errors %}
+		<span class="Error" style="color:red;">{{error}}</span>
+	{% endfor %}
+	<br/>
+{% endfor %}
+{{Message}}
+<input type="hidden" name="ReturnedForm">
+{%endif%}

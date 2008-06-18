@@ -1,0 +1,314 @@
+{%extends "base.html"%}
+{%block CSS%}
+	table.SurveyTable td{
+		text-align:center;
+		valign:middle;
+	}
+{%endblock%}
+{%block JavaScript%}
+window.onload = init;
+var Message;
+var AddedSurveyTable;
+var AddedSurveyTableHeader;
+var ListOfAddedSurveys = "";
+function SetForm(strNewForm){
+	Form = document.getElementById('Form');
+	Form.innerHTML = strNewForm;
+}
+function init(){
+}
+
+function AddSurveyToTable(Survey){
+	ListOfAddedSurveys = Survey + ListOfAddedSurveys;
+	AddedSurveyTable.innerHTML = AddedSurveyTableHeader + ListOfAddedSurveys;
+	document.getElementById('TreeSurveyTable').style.display = "block";
+}
+
+function HttpPost(strURL, strSubmit, strResultFunc, args){
+	/*
+	try {
+		netscape.security.PrivilegeManager.enablePrivilege("UniversalBrowserRead");
+	} catch (e) {
+		alert("Permission UniversalBrowserRead denied.");
+	}
+	*/
+	var xmlHttpReq = false;
+        // Mozilla/Safari
+	if (window.XMLHttpRequest) {
+		xmlHttpReq = new XMLHttpRequest();
+		xmlHttpReq.overrideMimeType('text/xml');
+	}
+	// IE
+	else if (window.ActiveXObject) {
+		xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlHttpReq.open('POST', strURL, true);
+	xmlHttpReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xmlHttpReq.onreadystatechange = function() {
+		if (xmlHttpReq.readyState == 4) {
+			eval(strResultFunc + '(xmlHttpReq.responseText,'+args+');');
+		}
+	}
+	xmlHttpReq.send(strSubmit);
+}
+
+
+
+function ResetForm(){
+	var strURL = "http://129.171.42.5/trees/GetTreeSurveyForm";
+	var strSubmit = "BlankFormRequest=" + escape("True");
+	var strResultFunc = "SetForm";
+	HttpPost(strURL, strSubmit, strResultFunc);
+}
+function SubmitForm(strTag){
+	Form = eval('document.Survey'+strTag)
+	var strURL = "{%url SubmitTreeSurveyForm%}";
+	var strSubmit = GetFormAsPost(Form);
+	var strResultFunc = "HandleResult";
+	HttpPost(strURL, strSubmit, strResultFunc, strTag);
+}
+
+function HandleResult(Result, strTag){
+	//alert(Result);
+	SubmitButton = document.getElementById('SubmitButton'+strTag);	
+	SubmitButton.value = 'save';
+	SubmitButton.disabled = false;
+	//document.getElementById('debug').innerHTML = Result;
+	if (Result.indexOf('errors') > -1){
+		alert(Result);
+	}
+	else{
+		//alert('Form saved' + Result)
+	}
+}
+
+function GetFormAsPost(Form){
+	var strSubmit = "";
+	for (i = 0; i < Form.elements.length; i++){
+		formElem = Form.elements[i];
+		switch (formElem.type) {
+                        // Text, select, hidden, password, textarea elements
+			case 'text':
+				strSubmit += formElem.name +
+				'=' + escape(formElem.value) + '&';
+			case 'select-one':
+				strSubmit += formElem.name + 
+				'=' + escape(formElem.value) + '&';
+			case 'hidden':
+			case 'password':
+			case 'textarea':
+				strSubmit += formElem.name + 
+				'=' + escape(formElem.value) + '&';
+			break;
+		}
+	}
+	return strSubmit;
+}
+{%endblock%}
+{%block Title%}Add Survey to Existing Tree{%endblock%}
+{%block PageTitle%}Add Survey to Existing Tree{%endblock%}
+{%block Content%}
+<div id="TreeSurveyTable" style="border:1px black solid; margin:0; margin-top:25px; margin-bottom:25px; padding:0; height:250px; overflow:auto; display:none;">
+<table border="1" class="SurveyTable" id="AddedSurveyTable">
+	<tr>
+		<td>
+			Tag
+		</td>
+		<td>
+			Plot
+		</td>
+		<td>
+			Subplot
+		</td>
+		<td>
+			Quadrate
+		</td>
+		<td>
+			Species
+		</td>
+		<td>
+			Dbh
+		</td>
+		<td>
+			Comments
+		</td>
+		<td>
+			Date
+		</td>
+		<td>
+			Height
+		</td>
+		<td>
+			Canopy Width 1
+		</td>
+		<td>
+			Canopy Width 2
+		</td>
+		<td>
+			Measured by
+		</td>
+		<td>
+			Tallied by
+		</td>
+	</tr>
+</table>
+</div>
+<div style="overflow:auto;height:500px;">
+<table border="1" style="border:1px black solid;">
+	<tr>
+		<td colspan="5">
+			Tree
+		</td>
+		<td colspan="10">
+			Survey 1
+		</td>
+		<td colspan="9">
+			Survey 2
+		</td>
+	</tr>
+	<tr>
+		<td>
+			Tag
+		</td>
+		<td>
+			Plot
+		</td>
+		<td>
+			Subplot
+		</td>
+		<td>
+			Quadrate
+		</td>
+		<td>
+			Species
+		</td>
+		<td>
+			Dbh
+		</td>
+		<td>
+			Comments
+		</td>
+		<td>
+			Date
+		</td>
+		<td>
+			Height
+		</td>
+		<td>
+			Canopy Width 1
+		</td>
+		<td>
+			Canopy Width 2
+		</td>
+		<td>
+			Measured by
+		</td>
+		<td>
+			Tallied by
+		</td>
+		<td>
+			Dbh
+		</td>
+		<td>
+			Comments
+		</td>
+		<td>
+			Date
+		</td>
+		<td>
+			Height
+		</td>
+		<td>
+			Canopy Width 1
+		</td>
+		<td>
+			Canopy Width 2
+		</td>
+		<td>
+			Measured by
+		</td>
+		<td>
+			Tallied by
+		</td>
+		<td>
+			Save	
+		</td>
+	</tr>
+{%for a, b, c in Entries%}
+	<tr>
+		<td>
+			{{a.tag}}
+		</td>
+		<td>
+			{{a.plot}}
+		</td>
+		<td>
+			{{a.subplot}}
+		</td>
+		<td>
+			{{a.quadrate}}
+		</td>
+		<td>
+			{{a.species}}
+		</td>
+		<td>
+			{{b.dbh}}
+		</td>
+		<td>
+			{{b.comments}}
+		</td>
+		<td>
+			{{b.date}}
+		</td>
+		<td>
+			{{b.height}}
+		</td>
+		<td>
+			{{b.canopy_width1}}
+		</td>
+		<td>
+			{{b.canopy_width2}}
+		</td>
+		<td>
+			{{b.measured_by}}
+		</td>
+		<td>
+			{{b.tallied_by}}
+		</td>
+		<form name="Survey{{a.tag}}">
+		<td>
+			{{c.dbh}}
+			{{c.tree}}
+		</td>
+		<td>
+			{{c.comments}}
+		</td>
+		<td>
+			{{c.date}}
+		</td>
+		<td>
+			{{c.height}}
+		</td>
+		<td>
+			{{c.canopy_width1}}
+		</td>
+		<td>
+			{{c.canopy_width2}}
+		</td>
+		<td>
+			{{c.measured_by}}
+		</td>
+		<td>
+			{{c.tallied_by}}
+		</td>
+		</form>
+		<td>
+			<input type="submit" value="save" onclick="SubmitForm('{{a.tag}}');this.value='saving...';this.disabled=true;" id="SubmitButton{{a.tag}}">
+		</td>
+	</tr>
+{%endfor%}
+</table>
+</div>
+<div id="debug">
+</div>
+{%endblock%}
