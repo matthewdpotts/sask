@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block Title %}SASK: Add New Data{% endblock %}
+{% block PageTitle %}SASK: Add New Data{% endblock %}
+{%block Content%}
+<h2>Physical Data:</h2>
+<ul>
+<li><a href="{%url AddPlot %}">Add data about a new plot</a></li>
+<li><a href="{%url AddPlotSurvey%}">Add census data to an existing plot</a></li>
+</ul>
+<h2>Taxa Data:</h2>
+<ul>
+<li><a href="{%url NewTreeSurvey%}">Add tree survey</a></li>
+<li><a href="{%url SecondTreeSurvey%}">Add a second tree survey</a></li>
+</ul>
+{%endblock%}

@@ -109,25 +109,7 @@ def GetQuadratesOfSubplot(request):
 	TheSubplot = Subplot.objects.get(id=SubplotID)
 	data = serializers.serialize("json", Quadrate.objects.filter(subplot=TheSubplot))
 	return HttpResponse(data, mimetype="application/javascript")
-"""
-def AddPlot(request):
-	Title = "Add Plot"
-	PageTitle = Title
-	ButtonLabel = "add plot"
-	Message = ""
-	PlotInstance = Plot()
-	if request.POST:
-		Form = PlotForm(data = request.POST, instance = PlotInstance)
-		if Form.is_valid():
-			SavedPlot = Form.save()
-			Message = "Plot successfully added (%s)." % SavedPlot
-			Form = PlotForm()
-		else:
-			Message = "There is an error in the form."
-	else:
-		Form = PlotForm(instance=PlotInstance)
-	return render_to_response('add.html',{'Form':Form, 'Message':Message,'Title':Title,'PageTitle':PageTitle,'ButtonLabel':ButtonLabel,'url':reverse("AddPlot")})
-"""
+
 def AddSubplot(request):
 	Title = "Add subplot"
 	PageTitle = Title
@@ -163,25 +145,7 @@ def AddQuadrate(request):
 	else:
 		Form = QuadrateForm(instance=QuadrateInstance)
 	return render_to_response('add.html',{'AddPlot':'True','Form':Form, 'Message':Message,'Title':Title,'PageTitle':PageTitle,'ButtonLabel':ButtonLabel,'url':reverse("AddQuadrate")})
-"""
-def AddPlotSurvey(request):
-	Title = "Plot Survey"
-	PageTitle = Title
-	ButtonLabel = "submit plot survey"
-	Message = ""
-	PlotSurveyInstance = PlotSurvey()
-	if request.POST:
-		Form = PlotSurveyForm(data = request.POST, instance = PlotSurveyInstance)
-		if Form.is_valid():
-			SavedPlotSurvey = Form.save()
-			Message = "Plot survey successfully saved (%s)." % SavedPlotSurvey
-			Form = PlotSurveyForm()
-		else:
-			Message = "There is an error in the form."
-	else:
-		Form = PlotSurveyForm(instance=PlotSurveyInstance)
-	return render_to_response('add.html',{'Form':Form, 'Message':Message,'Title':Title,'PageTitle':PageTitle,'ButtonLabel':ButtonLabel,'url':reverse("AddPlotSurvey")})
-"""
+
 def AddSubplotSurvey(request):
 	Title = "Subplot Survey"
 	PageTitle = Title

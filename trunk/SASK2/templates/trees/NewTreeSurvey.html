@@ -1,0 +1,219 @@
+{%extends "base.html"%}
+{%block CSS%}
+	table.SurveyTable td{
+		text-align:center;
+		valign:middle;
+	}
+{%endblock%}
+{%block JavaScript%}
+window.onload = init;
+var Message;
+var AddedSurveyTable;
+var AddedSurveyTableHeader;
+var ListOfAddedSurveys = "";
+var BlankSpeciesForm = "";
+function SetForm(strNewForm){
+	Form = document.getElementById('Form');
+	Form.innerHTML = strNewForm;
+	AppendToSpecies();
+}
+function init(){
+	ResetForm();
+	Message = document.getElementById('Message');
+	AddedSurveyTable = document.getElementById('AddedSurveyTable');
+	AddedSurveyTableHeader = AddedSurveyTable.innerHTML;
+}
+
+function AppendToSpecies(){
+//	alert(document.getElementById('id_species').innerHTML);
+	SpeciesSelector = document.getElementById('id_species');
+//	alert(SpeciesSelector);
+	SpeciesSelector.innerHTML = "<option onclick=\"ShowSpeciesForm();\" value=\"-1\">add new species<\option>\n" + SpeciesSelector.innerHTML;
+}
+
+function ShowSpeciesForm(){
+	var strURL = "{% url GetSpeciesForm %}";
+	var strSubmit = "BlankFormRequest="+escape("True");
+	var strResultFunc = "DisplaySpeciesForm";
+	HttpPost(strURL, strSubmit, strResultFunc);
+}
+function DisplaySpeciesForm(Result){
+//	alert(Result);
+	SpeciesDiv = document.getElementById('SpeciesDiv');
+	SpeciesDiv.style.display = 'block';
+	SpeciesForm = document.getElementById('SpeciesForm');
+	SpeciesForm.innerHTML = Result;
+	BlankSpeciesForm = Result;
+}
+
+function SubmitSpeciesForm(){
+	Form = document.SpeciesForm;
+	var strURL = "{% url GetSpeciesForm %}";
+	var strSubmit = GetFormAsPost(Form);
+	var strResultFunc = "HandleSpeciesForm";
+	alert(strSubmit);
+	HttpPost(strURL, strSubmit, strResultFunc);
+}
+
+function HandleSpeciesForm(Result){
+	var SpeciesForm = document.getElementById('SpeciesForm');
+	var SpeciesDiv = document.getElementById('SpeciesDiv');
+	if(Result.indexOf('id_family') > -1){
+		SpeciesForm.innerHTML = Result;
+	}
+	else{
+		SpeciesForm.innerHTML = BlankSpeciesForm;
+		SpeciesDiv.style.display = 'none';
+		length = document.forms['TreeSurveyForm'].species.options.length;
+		eval('document.forms[\'TreeSurveyForm\'].species.options[length] = new Option('+Result+');');
+		document.forms['TreeSurveyForm'].species.selectedIndex = length;
+	}
+}
+function AddSurveyToTable(Survey){
+	ListOfAddedSurveys = Survey + ListOfAddedSurveys;
+	AddedSurveyTable.innerHTML = AddedSurveyTableHeader + ListOfAddedSurveys;
+	document.getElementById('TreeSurveyTable').style.display = "block";
+}
+
+function HttpPost(strURL, strSubmit, strResultFunc){
+	/*
+	try {
+		netscape.security.PrivilegeManager.enablePrivilege("UniversalBrowserRead");
+	} catch (e) {
+		alert("Permission UniversalBrowserRead denied.");
+	}
+	*/
+	var xmlHttpReq = false;
+        // Mozilla/Safari
+	if (window.XMLHttpRequest) {
+		xmlHttpReq = new XMLHttpRequest();
+		xmlHttpReq.overrideMimeType('text/xml');
+	}
+	// IE
+	else if (window.ActiveXObject) {
+		xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
+	}
+	xmlHttpReq.open('POST', strURL, true);
+	xmlHttpReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+	xmlHttpReq.onreadystatechange = function() {
+		if (xmlHttpReq.readyState == 4) {
+			eval(strResultFunc + '(xmlHttpReq.responseText);');
+		}
+	}
+	xmlHttpReq.send(strSubmit);
+}
+
+
+
+function ResetForm(){
+	var strURL = "{% url GetTreeSurveyForm %}";
+	var strSubmit = "BlankFormRequest=" + escape("True");
+	var strResultFunc = "SetForm";
+	HttpPost(strURL, strSubmit, strResultFunc);
+}
+function SubmitForm(){
+	Form = document.TreeSurveyForm;
+	var strURL = "{% url GetTreeSurveyForm %}";
+	var strSubmit = GetFormAsPost(Form);
+	var strResultFunc = "HandleResult";
+	HttpPost(strURL, strSubmit, strResultFunc);
+}
+
+function HandleResult(Result){
+	if(Result.indexOf("ReturnedForm") == -1){
+		AddSurveyToTable(Result);
+		ResetForm();
+	}
+	else{
+		SetForm(Result);
+	}
+}
+
+function GetFormAsPost(Form){
+	var strSubmit = "";
+	for (i = 0; i < Form.elements.length; i++){
+		formElem = Form.elements[i];
+		switch (formElem.type) {
+                        // Text, select, hidden, password, textarea elements
+			case 'text':
+				strSubmit += formElem.name +
+				'=' + escape(formElem.value) + '&';
+			case 'select-one':
+				strSubmit += formElem.name + 
+				'=' + escape(formElem.value) + '&';
+			case 'hidden':
+			case 'password':
+			case 'textarea':
+				strSubmit += formElem.name + 
+				'=' + escape(formElem.value) + '&';
+			break;
+		}
+	}
+	return strSubmit;
+}
+{%endblock%}
+{%block Title%}Add Survey For New Tree{%endblock%}
+{%block PageTitle%}Add Survey For New Tree{%endblock%}
+{%block Content%}
+<div id="TreeSurveyTable" style="border:1px black solid; margin:0; margin-top:25px; margin-bottom:25px; padding:0; height:250px; overflow:auto; display:none;">
+This data has been successfully added:
+<table border="1" class="SurveyTable" id="AddedSurveyTable">
+	<tr>
+		<td>
+			Tag
+		</td>
+		<td>
+			Plot
+		</td>
+		<td>
+			Subplot
+		</td>
+		<td>
+			Quadrate
+		</td>
+		<td>
+			Species
+		</td>
+		<td>
+			Dbh
+		</td>
+		<td>
+			Comments
+		</td>
+		<td>
+			Date
+		</td>
+		<td>
+			Height
+		</td>
+		<td>
+			Canopy Width 1
+		</td>
+		<td>
+			Canopy Width 2
+		</td>
+		<td>
+			Measured by
+		</td>
+		<td>
+			Tallied by
+		</td>
+	</tr>
+</table>
+</div>
+<div style="margin:0 auto;text-align:left;background-color:light-yellow;border:1px orange solid;padding:5px;width:450">
+<form name="TreeSurveyForm">
+<div id="Form">
+Loading...
+</div>
+</form>
+<input type="submit" value="submit tree survey" onclick="SubmitForm();"/>
+</div>
+<br/>
+<br/>
+<div id="SpeciesDiv" style="display:block;">
+<form name="SpeciesForm" id="SpeciesForm">
+</form>
+<input type="submit" value="add species" onclick="SubmitSpeciesForm()">
+</div>
+{%endblock%}
