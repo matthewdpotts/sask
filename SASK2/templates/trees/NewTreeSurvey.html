@@ -51,7 +51,7 @@ function SubmitSpeciesForm(){
 	var strURL = "{% url GetSpeciesForm %}";
 	var strSubmit = GetFormAsPost(Form);
 	var strResultFunc = "HandleSpeciesForm";
-	alert(strSubmit);
+	//alert(strSubmit);
 	HttpPost(strURL, strSubmit, strResultFunc);
 }
 
