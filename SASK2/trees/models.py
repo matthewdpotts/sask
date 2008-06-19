@@ -7,10 +7,10 @@ from SASK2.species.models import Species, TreeSpecies
 from SASK2.personnel.models import Person
 
 class Tree(models.Model):
-	tag = models.PositiveIntegerField(unique=True)
 	plot = models.ForeignKey(Plot)
 	subplot = models.ForeignKey(Subplot)
 	quadrate = models.ForeignKey(Quadrate)
+	tag = models.PositiveIntegerField(unique=True)
 	species = models.ForeignKey(Species)
 
 	class Admin:

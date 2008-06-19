@@ -35,11 +35,11 @@ class Plot(models.Model):
 
 class PlotSurvey(models.Model):
 	liana_or_figs_choices = (('yes','yes'),('no','no'))
-	date = models.DateField()
 	plot = models.ForeignKey(Plot)
+	date = models.DateField()
+	liana_or_figs = models.CharField(null=True,max_length = 3, choices=liana_or_figs_choices)
 	measured_by = models.ForeignKey(Person, related_name = 'sitesurvey_measured_set')
 	tallied_by = models.ForeignKey(Person, related_name = 'sitesurvey_tallied_set')
-	liana_or_figs = models.CharField(max_length = 3, choices=liana_or_figs_choices)
 
 	def __unicode__(self):
                 return u'%s %s' % (self.plot, self.date)
