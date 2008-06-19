@@ -43,16 +43,16 @@ def SecondTreeSurvey(request):
 		Entry.extend(TwoSurveys)
 		#Entry[1] = TreeSurveyForm(instance=Entry[1])
 		if len(Entry) == 3:
-			Entry[2] = TreeSurveyForm(instance=Entry[2])
+			Entry[2] = TreeSurveyForm(instance=Entry[2], prefix='Survey%s' % (Entry[0].tag,))
 		else:
 			treesurvey = TreeSurvey(tree = Entry[0])
-			Entry.append(TreeSurveyForm(instance=treesurvey))		
+			Entry.append(TreeSurveyForm(instance=treesurvey, prefix='Survey%s' % (Entry[0].tag,)))		
 		Entries.append(Entry)
 
 	return render_to_response('trees/SecondTreeSurvey.html', {'Entries':Entries})
 
 def SubmitTreeSurveyForm(request):
-	treesurveyform = TreeSurveyForm(data=request.POST)
+	treesurveyform = TreeSurveyForm(data=request.POST, prefix='Survey%s' % request.POST.get('TagNumber',''))
 	if treesurveyform.is_valid():
 		treesurvey = treesurveyform.save()
 		return HttpResponse('%s' % (treesurvey.tree.tag,))
@@ -60,5 +60,6 @@ def SubmitTreeSurveyForm(request):
 		Errors = 'The survey couldn\'t be saved. Please check the following fields for errors:\n'
 		for tag in treesurveyform.errors:
 			Errors = '%s%s\n' % (Errors,tag)
+		Errors = '%s%s' % (Errors,request.POST.get('Survey1-date','nothing'))
 		return HttpResponse(Errors)
 		#return render_to_response('trees/TreeSurveyForm.html',{'form':treesurveyform});
