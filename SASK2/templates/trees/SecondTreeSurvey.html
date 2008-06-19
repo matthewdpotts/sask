@@ -11,11 +11,62 @@ var Message;
 var AddedSurveyTable;
 var AddedSurveyTableHeader;
 var ListOfAddedSurveys = "";
+function getElementsByClass(searchClass,node,tag) {
+  var classElements = new Array();
+  if (node == null)
+    node = document;
+  if (tag == null)
+    tag = '*';
+  var els = node.getElementsByTagName(tag);
+  var elsLen = els.length;
+  var pattern = new RegExp("(^|\\s)"+searchClass+"(\\s|$)");
+  for (i = 0, j = 0; i < elsLen; i++) {
+    if (pattern.test(els[i].className) ) {
+      classElements[j] = els[i];
+      j++;
+    }
+  }
+  return classElements;
+}
+
 function SetForm(strNewForm){
 	Form = document.getElementById('Form');
 	Form.innerHTML = strNewForm;
 }
+function addField (form, fieldType, fieldName, fieldValue) {
+  if (document.getElementById) {
+    var input = document.createElement('INPUT');
+      if (document.all) { // what follows should work 
+                          // with NN6 but doesn't in M14
+        input.type = fieldType;
+        input.name = fieldName;
+        input.value = fieldValue;
+      }
+      else if (document.getElementById) { // so here is the
+                                          // NN6 workaround
+        input.setAttribute('type', fieldType);
+        input.setAttribute('name', fieldName);
+        input.setAttribute('value', fieldValue);
+      }
+    form.appendChild(input);
+  }
+}
 function init(){
+	//Calendar = new CalendarPopup("CalendarDiv");
+	//Calendar.setCssPrefix("TEST");
+	//Calendar.showNavigationDropdowns();
+//alert(document.forms[0].elements.length);
+	dates = getElementsByClass("datetd");
+//alert(dates[0].innerHTML);
+	for(var i = 0; i<dates.length; i++){
+		var tag = dates[i].id;
+		//eval("Calendar"+tag+".showNavigationDropdowns();");		
+//		dates[i].innerHTML = dates[i].innerHTML + "<br/><A HREF=\"#\" onClick=\"Calendar.select(document.getElementById('id_"+tag+"-date'),'CalendarAnchor"+tag+"','MM/dd/yyyy'); return false;\" NAME=\"CalendarAnchor"+tag+"\" ID=\"CalendarAnchor"+tag+"\">calendar</A>";
+	
+	}
+//alert(dates[0].innerHTML)
+//alert(document.forms[0].elements.length);
+		//alert(document.forms[0].Survey1-dbh.value);
 }
 
 function AddSurveyToTable(Survey){
@@ -91,17 +142,25 @@ function GetFormAsPost(Form){
 			case 'text':
 				strSubmit += formElem.name +
 				'=' + escape(formElem.value) + '&';
+				break;
 			case 'select-one':
 				strSubmit += formElem.name + 
 				'=' + escape(formElem.value) + '&';
+				break;
 			case 'hidden':
+				strSubmit += formElem.name + 
+				'=' + escape(formElem.value) + '&';
+				break;
 			case 'password':
+				break;
 			case 'textarea':
 				strSubmit += formElem.name + 
 				'=' + escape(formElem.value) + '&';
+				break;
 			break;
 		}
 	}
+alert(strSubmit);
 	return strSubmit;
 }
 {%endblock%}
@@ -277,14 +336,17 @@ function GetFormAsPost(Form){
 		</td>
 		<form name="Survey{{a.tag}}">
 		<td>
+			<input type="hidden" name="TagNumber" value="{{a.tag}}"/>
 			{{c.dbh}}
 			{{c.tree}}
 		</td>
 		<td>
 			{{c.comments}}
 		</td>
-		<td>
+		<td class="datetd" id="Survey{{a.tag}}">
 			{{c.date}}
+<br/><A HREF="#" onClick="Calendar.select(document.getElementById('id_Survey{{a.tag}}-date'),'CalendarAnchorSurvey{{a.tag}}','MM/dd/yyyy'); return false;" NAME="CalendarAnchorSurvey{{a.tag}}" ID="CalendarAnchorSurvey{{a.tag}}">calendar</A>
+
 		</td>
 		<td>
 			{{c.height}}

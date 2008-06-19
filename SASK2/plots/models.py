@@ -12,13 +12,14 @@ class Plot(models.Model):
                 ('LO', 'Lower'),
                 ('VA', 'Valley'),
         )
+	
+	forest_reserve = models.CharField(max_length=20)
+	compartment = models.PositiveIntegerField()
 	latitude = models.DecimalField(max_digits=5,decimal_places=2)
 	longitude = models.DecimalField(max_digits=10,decimal_places=5)
 	baseline_bearing = models.DecimalField(max_digits=10, decimal_places=5)
 	width = models.PositiveIntegerField()
 	length = models.PositiveIntegerField()
-	forest_reserve = models.CharField(max_length=20)
-	compartment = models.PositiveIntegerField()
 	"""
 	altitude_NE = models.DecimalField(max_digits=10, decimal_places=5)
 	altitude_SE = models.DecimalField(max_digits=10, decimal_places=5)
@@ -33,11 +34,12 @@ class Plot(models.Model):
 		pass
 
 class PlotSurvey(models.Model):
+	liana_or_figs_choices = (('yes','yes'),('no','no'))
 	date = models.DateField()
 	plot = models.ForeignKey(Plot)
 	measured_by = models.ForeignKey(Person, related_name = 'sitesurvey_measured_set')
 	tallied_by = models.ForeignKey(Person, related_name = 'sitesurvey_tallied_set')
-	liana_figs = models.CharField(max_length = 20)
+	liana_or_figs = models.CharField(max_length = 3, choices=liana_or_figs_choices)
 
 	def __unicode__(self):
                 return u'%s %s' % (self.plot, self.date)
