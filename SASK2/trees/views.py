@@ -60,6 +60,6 @@ def SubmitTreeSurveyForm(request):
 		Errors = 'The survey couldn\'t be saved. Please check the following fields for errors:\n'
 		for tag in treesurveyform.errors:
 			Errors = '%s%s\n' % (Errors,tag)
-		Errors = '%s%s' % (Errors,request.POST.get('Survey1-date','nothing'))
+		#Errors = '%s%s' % (Errors,request.POST.get('Survey1-date','nothing'))
 		return HttpResponse(Errors)
 		#return render_to_response('trees/TreeSurveyForm.html',{'form':treesurveyform});
