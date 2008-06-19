@@ -21,6 +21,9 @@ function RestoreFormAction(){
 		
 		{% for field in PlotSurveyForm %}
 			{{field.label}}: {{field}}
+{%ifequal field.label "Date"%}
+        <A HREF="#" onClick="Calendar.select(document.getElementById('id_date'),'CalendarAnchor','MM/dd/yyyy'); return false;" NAME="CalendarAnchor" ID="CalendarAnchor">calendar</A>
+        {%endifequal%}
 			{% for error in field.errors %}
 				 <span class="Error" style="color:red;">{{error}}</span>
 			{% endfor %}
