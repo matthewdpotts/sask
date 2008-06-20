@@ -1,0 +1,33 @@
+{%extends 'base.html' %}
+{%block PageTitle%}{{PageTitle}}{%endblock%}
+{%block Title%}{{Title}}{%endblock%}
+{%block JavaScript%}
+var Message;
+window.onload = function(){document.forms[0].action = location.href;
+Message = document.getElementById('Message');}
+{%endblock%}
+{%block Content%}
+<div id="FormContainer">
+<form method="POST" action=".">
+{%for field in Form%}
+	{%ifnotequal field.label "Tree"%}
+	{{field.label}}: 
+	{%endifnotequal%}
+	{{field}}
+ {%ifequal field.label "Date"%}
+        <A HREF="#" onClick="Calendar.select(document.getElementById('id_date'),'CalendarAnchor','MM/dd/yyyy'); return false;" NAME="CalendarAnchor" ID="CalendarAnchor">calendar</A>
+        {%endifequal%}
+	<div class="Error">
+	{%for error in field.errors%}
+		{{error}}
+	{%endfor%}
+	</div>
+	<br/>
+{%endfor%}
+<input type="submit" name="submit" value="make edit" onclick="Message.innerHTML='Please wait...';"/>
+</form>
+<br/>
+<div class="Message" id="Message">
+{{Message}}
+</div>
+{%endblock%}

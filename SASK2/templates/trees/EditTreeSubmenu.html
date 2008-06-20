@@ -1,0 +1,6 @@
+<ul>
+<li><a href="{%url EditTree TreeID%}">Edit this tree's information</a></li>
+{%if TreeSurveySelectorForm%}
+<li>or select one of this tree's surveys to edit: {{TreeSurveySelectorForm.treesurvey}}</li>
+{%endif%}
+</ul>

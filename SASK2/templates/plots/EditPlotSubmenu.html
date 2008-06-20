@@ -1,0 +1,6 @@
+<ul>
+<li><a href="{%url EditPlot PlotID %}">Edit this plot's information</a></li>
+{%if PlotSurveySelectorForm%}
+<li>or select one of this plot's surveys to edit: {{PlotSurveySelectorForm.plotsurvey}}</li>
+{%endif%}
+</ul>
