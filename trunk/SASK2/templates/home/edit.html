@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{%block JavaScript%}
+var PlotSelector;
+var PlotSubmenuDiv;
+var TreeSelector;
+var TreeSubmenuDiv;
+var PlotSurveySelector;
+var TreeSurveySelector;
+window.onload = function(){
+	PlotSubmenuDiv = document.getElementById('PlotSubmenuDiv');
+	PlotSelector = document.getElementById('id_plot');
+	TreeSubmenuDiv = document.getElementById('TreeSubmenuDiv');
+	TreeSelector = document.getElementById('id_tree');
+	TreeSelector.onchange = TreeSelectorChangeEvent;
+	PlotSelector.onchange = PlotSelectorChangeEvent;
+}
+function PlotSelectorChangeEvent(){
+	//alert(PlotSelector.value);
+	if(PlotSelector.value == ""){
+		PlotSubmenuDiv.innerHTML = "Loading..."
+		PlotSubmenuDiv.style.display = "none";
+		return;
+	}
+	PlotSubmenuDiv.style.display = "block";
+	strURL = "{%url EditPlotSubmenu%}";
+	strSubmit = "PlotID=" + PlotSelector.value;
+	strResultFunc = "UpdatePlotSubmenu"
+	strArgs = "''";
+	HttpPost(strURL, strSubmit, strResultFunc, strArgs);
+} 
+function TreeSelectorChangeEvent(){
+//	alert(TreeSelector.value);
+	if(TreeSelector.value == ""){
+		TreeSubmenuDiv.innerHTML = "Loading..."
+		TreeSubmenuDiv.style.display = "none";
+		return;
+	}
+	TreeSubmenuDiv.style.display = "block";
+	strURL = "{%url EditTreeSubmenu%}";
+	strSubmit = "TreeID=" + TreeSelector.value;
+	strResultFunc = "UpdateTreeSubmenu"
+	strArgs = "''";
+	HttpPost(strURL, strSubmit, strResultFunc, strArgs);
+} 
+function UpdateTreeSubmenu(Result, args){
+	TreeSubmenuDiv.innerHTML = Result;
+	TreeSurveySelector = document.getElementById('id_treesurvey');
+	TreeSurveySelector.onchange = TreeSurveySelectorChange;
+}
+function UpdatePlotSubmenu(Result, args){
+	PlotSubmenuDiv.innerHTML = Result;
+	PlotSurveySelector = document.getElementById('id_plotsurvey');
+	PlotSurveySelector.onchange = PlotSurveySelectorChange;
+}
+function PlotSurveySelectorChange(){
+	if(PlotSurveySelector.value != ''){
+		location.href = "{%url EditPlotSurvey 0 %}" + PlotSurveySelector.value;
+	}
+}
+function TreeSurveySelectorChange(){
+	if(TreeSurveySelector.value != ''){
+		location.href = "{%url EditTreeSurvey 0 %}" + TreeSurveySelector.value;
+	}
+}
+	
+{%endblock%}
+{% block Title %}Edit Data{% endblock %}
+{% block PageTitle %}Edit Data{% endblock %}
+{%block Content%}
+<h2>Physical Data:</h2>
+<ul>
+<li>Choose plot to edit: {{PlotSelectorForm.plot}}</li>
+<div style="display:none;" id = "PlotSubmenuDiv">Loading...</div>
+</ul>
+<h2>Taxa Data:</h2>
+<ul>
+<li><a href="">Edit information about a species</a></li>
+<br/>
+<li>Choose tree to edit: {{TreeSelectorForm.tree}}</li>
+<div style="display:none;" id="TreeSubmenuDiv">Loading...</div>
+</ul>
+{%endblock%}
