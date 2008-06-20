@@ -22,3 +22,16 @@ class UnlinkedTreeSurveyForm(forms.ModelForm):
 	class Meta:
 		model=TreeSurvey
 		exclude = ('tree',)
+
+class TreeSelectorForm(forms.Form):
+	tree = forms.ModelChoiceField(Tree.objects.all())
+
+class TreeSurveySelectorForm(forms.Form):
+        def __init__(self, *args, **kwargs):
+                tree = kwargs['tree']
+                del kwargs['tree']
+                super(TreeSurveySelectorForm, self).__init__(*args, **kwargs)
+                if tree:
+                        self.fields['treesurvey'].queryset = TreeSurvey.objects.filter(tree = tree)
+        treesurvey = forms.ModelChoiceField(TreeSurvey.objects.all())
+

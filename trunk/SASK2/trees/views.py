@@ -63,3 +63,54 @@ def SubmitTreeSurveyForm(request):
 		#Errors = '%s%s' % (Errors,request.POST.get('Survey1-date','nothing'))
 		return HttpResponse(Errors)
 		#return render_to_response('trees/TreeSurveyForm.html',{'form':treesurveyform});
+def EditTreeSubmenu(request):
+        TreeID = request.POST.get('TreeID','')
+        if isinstance(int(TreeID),(int,)) == False:
+                return HttpResponse('Please make a valid choice')
+        tree = Tree.objects.filter(id=TreeID)
+        if len(tree) != 1:
+                return HttpResponse('Please make a valid choice')
+        tree = tree[0]
+        treesurveys = TreeSurvey.objects.filter(tree=tree)
+        if len(treesurveys) > 0:
+                TSSF = TreeSurveySelectorForm(tree=tree)
+                return render_to_response('trees/EditTreeSubmenu.html', {'TreeID':TreeID,'TreeSurveySelectorForm':TSSF})
+        else:
+                return render_to_response('trees/EditTeeSubmenu.html', {'TreeID':TreeID})
+
+def EditTree(request, TreeID=''):
+	TreeID = int(TreeID)
+	Title = PageTitle = "Edit Tree Information"
+	Message = ''
+	if request.method == 'POST':
+		tf = TreeForm(data = request.POST)
+		if tf.is_valid():
+			t = tf.save(commit=False)
+			t.id = TreeID
+			t.save()
+			Message += 'The edit was successfully made.'
+		else:
+			Message += 'Please check the data for errors.'
+	else:
+		tree = Tree.objects.get(id=TreeID)
+		tf = TreeForm(instance=tree)
+	return render_to_response('trees/MakeEdit.html',{'Title':Title,'PageTitle':PageTitle,'Form':tf,'Message':Message})
+
+def EditTreeSurvey(request, TreeSurveyID=''):
+	TreeSurveyID = int(TreeSurveyID)
+	Title = PageTitle = "Edit Tree Survey"
+	Message = ''
+	if request.method == 'POST':
+		tsf = TreeSurveyForm(data = request.POST)
+		if tsf.is_valid():
+			ts = tsf.save(commit=False)
+			ts.id = TreeSurveyID
+			ts.save()
+			Message += 'The edit was successfully made.'
+		else:
+			Message += 'Please check the data for errors.'
+	else:
+		treesurvey = TreeSurvey.objects.get(id=TreeSurveyID)
+		tsf = TreeSurveyForm(instance=treesurvey)
+	return render_to_response('trees/MakeEdit.html',{'Title':Title,'PageTitle':PageTitle,'Form':tsf,'Message':Message})
+

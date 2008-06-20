@@ -40,7 +40,6 @@ class PlotSurvey(models.Model):
 	liana_or_figs = models.CharField(null=True,max_length = 3, choices=liana_or_figs_choices)
 	measured_by = models.ForeignKey(Person, related_name = 'sitesurvey_measured_set')
 	tallied_by = models.ForeignKey(Person, related_name = 'sitesurvey_tallied_set')
-
 	def __unicode__(self):
                 return u'%s %s' % (self.plot, self.date)
 

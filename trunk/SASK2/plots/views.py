@@ -185,3 +185,59 @@ def AddQuadrateSurvey(request):
 def GetAllPlots(request):
 	data = serializers.serialize("json", Plot.objects.all())
 	return HttpResponse(data, mimetype="application/javascript")
+
+def EditPlotSubmenu(request):
+	PlotID = request.POST.get('PlotID','')
+	if isinstance(int(PlotID),(int,)) == False:
+		return HttpResponse('Please make a valid choice')
+	plot = Plot.objects.filter(id=PlotID)
+	if len(plot) != 1:
+		return HttpResponse('Please make a valid choice')
+	plot = plot[0]
+	plotsurveys = PlotSurvey.objects.filter(plot=plot)
+	if len(plotsurveys) > 0:
+		PSSF = PlotSurveySelectorForm(plot=plot)
+		return render_to_response('plots/EditPlotSubmenu.html', {'PlotID':PlotID,'PlotSurveySelectorForm':PSSF})
+	else:
+		return render_to_response('plots/EditPlotSubmenu.html', {'PlotID':PlotID})
+		
+def EditPlot(request, PlotID=''):
+	PlotID = int(PlotID)
+	Title = PageTitle = "Edit Plot Information"
+	Message = ''
+	if request.method == 'POST':
+		pf = PlotForm(data = request.POST)
+		if pf.is_valid():
+			p = pf.save(commit=False)
+			p.id = PlotID
+			p.save()
+			Message += 'The edit was successfully made.'
+			return render_to_response('home/MakeEdit.html',{'Title':Title,'PageTitle':PageTitle,'Form':pf,'Message':Message})
+		else:
+			Message += 'Please check the data for errors.'
+			return render_to_response('home/MakeEdit.html',{'Title':Title,'PageTitle':PageTitle,'Form':pf,'Message':Message})
+	else:
+		plot = Plot.objects.get(id=PlotID)
+		pf = PlotForm(instance=plot)
+		return render_to_response('home/MakeEdit.html',{'Title':Title,'PageTitle':PageTitle,'Form':pf,'Message':Message})
+
+def EditPlotSurvey(request, PlotSurveyID=''):
+	PlotSurveyID = int(PlotSurveyID)
+	Title = PageTitle = "Edit Plot Survey"
+	Message = ''
+	if request.method == 'POST':
+		ppsf = PlotlessPlotSurveyForm(data = request.POST)
+		if ppsf.is_valid():
+			ps = ppsf.save(commit=False)
+			ps.id = PlotSurveyID
+			ps.save()
+			Message += 'The edit was successfully made.'
+			return render_to_response('home/MakeEdit.html',{'Title':Title,'PageTitle':PageTitle,'Form':ppsf,'Message':Message})
+		else:
+			Message += 'Please check the data for errors.'
+			return render_to_response('home/MakeEdit.html',{'Title':Title,'PageTitle':PageTitle,'Form':ppsf,'Message':Message})
+	else:
+		plotsurvey = PlotSurvey.objects.get(id=PlotSurveyID)
+		ppsf = PlotlessPlotSurveyForm(instance=plotsurvey)
+		return render_to_response('home/MakeEdit.html',{'Title':Title,'PageTitle':PageTitle,'Form':ppsf,'Message':Message})
+		
