@@ -1,0 +1,71 @@
+{%extends "base.html"%}
+{%block JavaScript%}
+var SpeciesSelectorDiv;
+var FilterDiv;
+var SpeciesEditFormDiv;
+var FilterForm;
+var SpeciesSelector;
+var SpeciesEditForm;
+window.onload = function(){
+	SpeciesSelectorDiv = document.getElementById('SpeciesSelectorDiv');
+	FilterDiv = document.getElementById('FilterDiv');
+	SpeciesEditFormDiv = document.getElementById('SpeciesEditFormDiv');
+	FilterForm = document.getElementById('FilterForm');
+	FilterChange();
+}
+function FilterChange(){
+	strURL = "{%url SpeciesSelectorForm%}";
+	strSubmit = GetFormAsPost(FilterForm);
+	strResultFunc = 'UpdateSpeciesSelectorDiv';
+	strArgs = "''";
+	HttpPost(strURL, strSubmit, strResultFunc, strArgs)
+}
+function UpdateSpeciesSelectorDiv(Result){
+	SpeciesSelectorDiv.innerHTML = Result;
+}
+function SpeciesSelectorChange(){
+	if(SpeciesSelector.value == ''){
+		return;
+	}
+	strURL = "{%url EditSpeciesForm 0%}" + SpeciesSelector.value;
+	strSubmit = "";
+	strResultFunc = 'UpdateSpeciesFormDiv';
+	strArgs = "''";
+	HttpPost(strURL, strSubmit, strResultFunc, strArgs)
+}
+function UpdateSpeciesFormDiv(Request){
+	SpeciesFormDiv.innerHTML = Request;
+}
+function SpeciesFormSubmit(){
+	strURL = "{%url EditSpeciesForm 0 %}" + SpeciesSelector.value;
+	strSubmit = GetFormAsPost(SpeciesEditForm);
+	strResultFunc = 'UpdateSpeciesEditFormDiv';
+	strArgs = "''";
+	HttpPost(strURL, strSubmit, strResultFunc, strArgs)
+}
+function SpeciesEditFormDiv(Result){
+	SpeciesEditFormDiv.innerHTML = Result;	
+}
+{%endblock%}
+{%block Title%}Edit Species{%endblock%}
+{%block PageTitle%}Edit Species{%endblock%}
+{%block Content%}
+<div id="SpeciesSelectorDiv" style="display:block;">
+Loading...
+</div>
+<div id="FilterDiv">
+<table>
+<tr><td>family</td><td>genus</td><td>species</td><td>spcode</td></tr>
+<tr>
+<form name="FilterForm" id="FilterForm">
+<td><input type="text" id="FilterFamily" name="family" onchange="FilterChange();"/></td>
+<td><input type="text" id="FilterGenus" name="genus" onchange="FilterChange();"/></td>
+<td><input type="text" id="FilterSpecies" name="species" onchange="FilterChange();"/></td>
+<td><input type="text" id="FilterSpcode" name="spcode" onchange="FilterChange();"/></td>
+</form>
+</tr>
+</table>
+</div>
+<div id="SpeciesEditFormDiv" style="display:none;">
+</div>
+{%endblock%}

@@ -1,0 +1,9 @@
+<form id="SpeciesEditForm">
+{%for field in SpeciesForm%}
+	{{field.label}}: {{field}}
+	{%for error in field.errors%}
+		{{error}}
+	{%endfor%}
+{%endfor%}
+</form>
+<input type="submit" value="edit" onclick="SpeciesFormSubmit();" onload="SpeciesEditForm = document.getElementById('SpeciesEditForm');"/>
