@@ -7,7 +7,7 @@ class Species(models.Model):
 	spcode = models.CharField(max_length=50, unique=True)
 
 	def __unicode__(self):
-                return u'%s %s %s (%s)' % (self.family, self.genus, self.species, self.spcode)
+                return u'%s' % (self.spcode)
 
 	class Admin:
 		pass
