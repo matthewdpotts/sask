@@ -30,7 +30,7 @@ class TreeSurvey(models.Model):
 	)
 	tree = models.ForeignKey(Tree)
 	dbh = models.DecimalField(max_digits = 5, decimal_places = 2)
-	comments = models.TextField(blank=True)
+	comments = models.CharField(max_length=256, null=True, blank=True)
 	date = models.DateField()
 	height = models.DecimalField(max_digits = 15, decimal_places = 5)
 	canopy_width1 = models.DecimalField(max_digits = 15, decimal_places = 5)

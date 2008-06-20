@@ -75,36 +75,6 @@ function AddSurveyToTable(Survey){
 	document.getElementById('TreeSurveyTable').style.display = "block";
 }
 
-function HttpPost(strURL, strSubmit, strResultFunc, args){
-	/*
-	try {
-		netscape.security.PrivilegeManager.enablePrivilege("UniversalBrowserRead");
-	} catch (e) {
-		alert("Permission UniversalBrowserRead denied.");
-	}
-	*/
-	var xmlHttpReq = false;
-        // Mozilla/Safari
-	if (window.XMLHttpRequest) {
-		xmlHttpReq = new XMLHttpRequest();
-		xmlHttpReq.overrideMimeType('text/xml');
-	}
-	// IE
-	else if (window.ActiveXObject) {
-		xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
-	}
-	xmlHttpReq.open('POST', strURL, true);
-	xmlHttpReq.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	xmlHttpReq.onreadystatechange = function() {
-		if (xmlHttpReq.readyState == 4) {
-			eval(strResultFunc + '(xmlHttpReq.responseText,'+args+');');
-		}
-	}
-	xmlHttpReq.send(strSubmit);
-}
-
-
-
 function ResetForm(){
 	var strURL = "http://129.171.42.5/trees/GetTreeSurveyForm";
 	var strSubmit = "BlankFormRequest=" + escape("True");

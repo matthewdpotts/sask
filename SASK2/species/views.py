@@ -79,3 +79,21 @@ def AddSpecies(request):
 	else:
 		Form = SpeciesForm(instance=SpeciesInstance)
 	return render_to_response('add.html',{'Form':Form, 'Message':Message,'Title':Title,'PageTitle':PageTitle,'ButtonLabel':ButtonLabel,'url':reverse("AddSpecies")})
+
+def EditSpecies(request, SpeciesID=''):
+        SpeciesID = int(SpeciesID)
+        Title = PageTitle = "Edit Species Information"
+        Message = ''
+        if request.method == 'POST':
+                sf = SpeciesForm(data = request.POST)
+                if sf.is_valid():
+                        s = sf.save(commit=False)
+                       	s.id = SpeciesID
+                        s.save()
+                        Message += 'The edit was successfully made.'
+                else:
+                        Message += 'Please check the data for errors.'
+        else:
+                species = Species.objects.get(id=SpeciesID)
+                sf = SpeciesForm(instance=species)
+        return render_to_response('species/MakeEdit.html',{'Title':Title,'PageTitle':PageTitle,'Form':sf,'Message':Message})

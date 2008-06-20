@@ -32,3 +32,17 @@ input .text{
 	font-size:10pt;
 	size:5;
 }
+.Error{
+	color:red;
+	font-weight:bold;
+}
+.Message{
+	font-weight:bold;
+}
+#FormContainer{
+	margin: 0 auto;
+	margin-top:15px;
+	border: 1px orange solid;
+	padding:15px;
+	width:700px;
+}
