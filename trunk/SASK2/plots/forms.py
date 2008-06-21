@@ -44,6 +44,9 @@ class UnlinkedPlotSurveyForm(forms.ModelForm):
 class PlotSelectorForm(forms.Form):
 	plot = forms.ModelChoiceField(Plot.objects.all())
 
+class MultiplePlotSelectorForm(forms.Form):
+	plot = forms.ModelChoiceField(Plot.objects.all(), widget=forms.SelectMultiple() )
+
 class PlotSurveySelectorForm(forms.Form):
 	def __init__(self, *args, **kwargs):
 		plot = kwargs['plot']

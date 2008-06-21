@@ -88,10 +88,12 @@ def SpeciesSelectorForm(request):
 	genus = request.POST.get('genus','')
 	species = request.POST.get('species','')
 	spcode = request.POST.get('spcode','')
-	ssf = SpeciesSelectorFormForm(family=family, genus=genus, species=species, spcode=spcode)
+	ssf = SpeciesSelectorFormForm(prefix='Selector',family=family, genus=genus, species=species, spcode=spcode)
 	return render_to_response('species/SpeciesSelector.html',{'form':ssf})
 
 def EditSpeciesForm(request, SpeciesID=''):
+	SpeciesID = int(SpeciesID)
+	Message = ''
 	if request.method == 'POST':
 		sf = SpeciesForm(data = request.POST)
 		if sf.is_valid():
@@ -103,5 +105,5 @@ def EditSpeciesForm(request, SpeciesID=''):
 			Message += 'Please check the data for errors'
 	else:
 		s = Species.objects.get(id = SpeciesID)
-		sf = SpeciesForm(instance=sf)
+		sf = SpeciesForm(instance=s)
 	return render_to_response('species/SpeciesForm.html',{'form':sf,'Message':Message})
