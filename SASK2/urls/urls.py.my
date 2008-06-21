@@ -1,0 +1,18 @@
+from django.conf.urls.defaults import *
+
+from SASK2 import settings
+
+urlpatterns = patterns(
+	'',      
+	#(r'^SASK/$', 'django.contrib.auth.views.login', {'template_name': 'login.html'} ),
+	
+	(r'^SASK_media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': '/var/django_root/django_projects/SASK2/SASK_media'}),
+	
+	url(r'^admin/', include('django.contrib.admin.urls')),
+	
+	url(r'^', include('SASK2.home.urls')),
+	url(r'^plots/', include('SASK2.plots.urls')),
+	url(r'^data/', include('SASK2.data.urls')),
+	url(r'^species/', include('SASK2.species.urls')), 
+	url(r'^trees/', include('SASK2.trees.urls')),
+)
