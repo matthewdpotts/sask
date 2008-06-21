@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+{%block JavaScript%}
+var PlotSelector;
+var PlotFileName;
+var TreeSurveyRange1;
+var TreeSurveyRange2;
+var PlotForm;
+function downloadme(x){
+myTempWindow = window.open(x,'','left=10000,screenX=10000');
+myTempWindow.document.execCommand('SaveAs','null','SASK_media/test.txt');
+myTempWindow.close();
+}
+window.onload = function(){
+	PlotSelector = document.getElementById('id_plot');
+	PlotFileName = document.getElementById('PlotFileName');
+	TreeSurveyRange1 = document.getElementById('TreeSurveyRange1');
+	TreeSurveyRange2 = document.getElementById('TreeSurveyRange2');
+	PlotForm = document.getElementById('PlotForm');
+}
+function DownloadPlotData(){
+	alert(GetFormAsPost(PlotForm));
+	
+	//alert(PlotForm.plot.length);
+}
+function DownloadCensusData(){
+
+}
+{%endblock%}
+{% block Title %}Export Data{% endblock %}
+{% block PageTitle %}Export Data{% endblock %}
+{%block Content%}
+<h2>Physical Data:</h2>
+Select plots:<br/>
+<form id="PlotForm" action="{%url ExportPlotData%}" method="POST" name="PlotForm">
+{{MultiplePlotSelectorForm.plot}}
+<br/>
+enter filename: <input type="text" name="PlotFileName" id="PlotFileName"/>
+<br/>
+<input type="submit" id="DownloadPlotInfo" value="download plot data"/>
+</form>
+<h2>Taxa Data:</h2>
+<div style="width:300px;margin:0 auto;text-align:left;">
+<ul>
+<li>Trees</li>
+<form name="TreeForm" id="TreeForm" action="{%url ExportTreeData%}" method="POST">
+	<ul>
+		<li>Enter survey range <input type="text" name="TreeSurveyRange1" size="2"/>-<input type="text" name="TreeSurveyRange2" size="2"/><br/>
+<br/>
+filename: <input type="text" value="" name="TreeFileName"/>
+<input type="Submit" name="TreeDataSubmit" value="download tree data"/></li>
+	</ul>
+</form>
+</ul>
+</ul>
+</div>
+<br/>
+<br/>
+<br/>
+<br/>
+{%endblock%}
