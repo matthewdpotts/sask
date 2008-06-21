@@ -6,35 +6,47 @@ var SpeciesEditFormDiv;
 var FilterForm;
 var SpeciesSelector;
 var SpeciesEditForm;
+var CountSpan;
+var SubmitEditButton = '<input type="submit" value="edit" id="SubmitEditButton" onclick="SpeciesFormSubmit()"/>';
 window.onload = function(){
 	SpeciesSelectorDiv = document.getElementById('SpeciesSelectorDiv');
 	FilterDiv = document.getElementById('FilterDiv');
 	SpeciesEditFormDiv = document.getElementById('SpeciesEditFormDiv');
 	FilterForm = document.getElementById('FilterForm');
+	SpeciesEditForm = document.getElementById('SpeciesEditForm');
 	FilterChange();
 }
 function FilterChange(){
 	strURL = "{%url SpeciesSelectorForm%}";
 	strSubmit = GetFormAsPost(FilterForm);
+	//alert(strSubmit);
 	strResultFunc = 'UpdateSpeciesSelectorDiv';
 	strArgs = "''";
 	HttpPost(strURL, strSubmit, strResultFunc, strArgs)
 }
 function UpdateSpeciesSelectorDiv(Result){
 	SpeciesSelectorDiv.innerHTML = Result;
+	SpeciesSelector = document.getElementById('id_Selector-species');
+	SpeciesSelector.onchange = SpeciesSelectorChange;
+	CountSpan = document.getElementById('CountSpan');
+	CountSpan.innerHTML = '(' + (SpeciesSelector.options.length - 1) + ')';
 }
 function SpeciesSelectorChange(){
 	if(SpeciesSelector.value == ''){
+		SpeciesEditFormDiv.innerHTML = "Loading...";
+		SpeciesEditFormDiv.style.display = "none";
 		return;
 	}
 	strURL = "{%url EditSpeciesForm 0%}" + SpeciesSelector.value;
 	strSubmit = "";
-	strResultFunc = 'UpdateSpeciesFormDiv';
+	strResultFunc = 'UpdateSpeciesEditFormDiv';
 	strArgs = "''";
-	HttpPost(strURL, strSubmit, strResultFunc, strArgs)
+	HttpGet(strURL, strSubmit, strResultFunc, strArgs)
 }
-function UpdateSpeciesFormDiv(Request){
-	SpeciesFormDiv.innerHTML = Request;
+function UpdateSpeciesEditFormDiv(Request){
+	SpeciesEditFormDiv.style.display = "block";
+	SpeciesEditFormDiv.innerHTML = Request;
+	SpeciesEditFormDiv.innerHTML += "<br/>" + SubmitEditButton;
 }
 function SpeciesFormSubmit(){
 	strURL = "{%url EditSpeciesForm 0 %}" + SpeciesSelector.value;
@@ -43,29 +55,38 @@ function SpeciesFormSubmit(){
 	strArgs = "''";
 	HttpPost(strURL, strSubmit, strResultFunc, strArgs)
 }
-function SpeciesEditFormDiv(Result){
-	SpeciesEditFormDiv.innerHTML = Result;	
-}
 {%endblock%}
 {%block Title%}Edit Species{%endblock%}
 {%block PageTitle%}Edit Species{%endblock%}
 {%block Content%}
+<br/><br/>
 <div id="SpeciesSelectorDiv" style="display:block;">
 Loading...
 </div>
-<div id="FilterDiv">
+<div id="FilterDiv" style="text-align:left;">
+Filter by:
+<br/>
 <table>
-<tr><td>family</td><td>genus</td><td>species</td><td>spcode</td></tr>
+<tr><td>family</td><td>genus</td><td>species</td><td>spcode</td><td></td></tr>
 <tr>
 <form name="FilterForm" id="FilterForm">
-<td><input type="text" id="FilterFamily" name="family" onchange="FilterChange();"/></td>
-<td><input type="text" id="FilterGenus" name="genus" onchange="FilterChange();"/></td>
-<td><input type="text" id="FilterSpecies" name="species" onchange="FilterChange();"/></td>
-<td><input type="text" id="FilterSpcode" name="spcode" onchange="FilterChange();"/></td>
+<td><input type="text" id="FilterFamily" name="family" onkeypress="FilterChange();"/></td>
+<td><input type="text" id="FilterGenus" name="genus" onkeypress="FilterChange();"/></td>
+<td><input type="text" id="FilterSpecies" name="species" onkeypress="FilterChange();"/></td>
+<td><input type="text" id="FilterSpcode" size="5" name="spcode" onkeypress="FilterChange();"/></td>
 </form>
+<td><input type="submit" value="update filter" onclick="FilterChange();"/></td>
 </tr>
 </table>
 </div>
+<br/>
+<br/>
+<form action="javascript:;" name="SpeciesEditForm" id="SpeciesEditForm">
 <div id="SpeciesEditFormDiv" style="display:none;">
+Loading...
 </div>
+</form>
+<br/>
+</br>
+<a href="{%url Edit%}">return to edit</a>
 {%endblock%}
