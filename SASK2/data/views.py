@@ -38,7 +38,7 @@ def ExportTreeData(request):
 				Output += '\t%s\t%s\t%s\t%s\t%s\t%s\t%s' % (surveys[0].date, surveys[0].dbh, surveys[0].height, surveys[0].canopy_width1, surveys[0].canopy_width2, surveys[0].measured_by, surveys[0].tallied_by)
 				Output += '\t%s\t%s\t%s\t%s\t%s\t%s\t%s' % (surveys[1].date, surveys[1].dbh, surveys[1].height, surveys[1].canopy_width1, surveys[1].canopy_width2, surveys[1].measured_by, surveys[1].tallied_by)
 	elif R1 == 2 and R2 == 2:
-		Output += '\t1_date\t1_dbh\t1_height\t1_canopy_width1\t1_canopy_width2\t1_measured_by\t1_tallied_by'
+		Output += '\t2_date\t2_dbh\t2_height\t2_canopy_width1\t2_canopy_width2\t2_measured_by\t2_tallied_by'
 		for tree in trees:
 			Output += '\t%s\t%s\t%s\t%s\t%s' % (tree.tag, tree.species, tree.plot, tree.subplot, tree.quadrate)
 			surveys = TreeSurvey.objects.filter(tree= tree).order_by('date')[:2]
@@ -49,7 +49,7 @@ def ExportTreeData(request):
 			if len(surveys) == 2:
 				Output += '\t%s\t%s\t%s\t%s\t%s\t%s\t%s' % (surveys[1].date, surveys[1].dbh, surveys[1].height, surveys[1].canopy_width1, surveys[1].canopy_width2, surveys[1].measured_by, surveys[1].tallied_by)
 	else:
-		return HttpResponse('error')
+		return HttpResponse('Please return and enter a valid range.')
 	response = HttpResponse(Output)
 	response['Content-Type'] = 'application/x-CBioD-tab-delimited-data'
 	response['Content-disposition'] = 'Attachment; filename=%s' % (request.POST.get('TreeFileName','TreeData.txt'),)
