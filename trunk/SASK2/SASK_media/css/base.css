@@ -7,6 +7,36 @@ body{
 	font-size:10pt;
 }
 
+#LinkBox{
+	color:white;
+	font-weight:bold;
+	background:#86BF30;
+	padding:10px;
+}
+#Bottomer{
+	margin:0;
+	background-color:#C0C0C0;
+	padding:0;
+	background-image:
+	url('/SASK_media/bottomfade.png');
+	background-repeat:repeat;
+}
+#Topper{
+	margin:0;
+	background-color:#C0C0C0;
+	padding:0;
+	background-image:
+	url('/SASK_media/topfade.png');
+	background-repeat:repeat;
+}
+#Header{
+	background:#86BF30;
+	color:white;
+	font-size:24pt;
+	text-align:left;
+	font-weight:bold;
+}
+
 #CenterColumn{
 	width:800px;
 	background:white;
@@ -14,13 +44,39 @@ body{
 	padding:0;
 	text-align:center;
 }
-
+#Footer{
+	background:#86BF30;
+	color:white;
+	font-weight:bold;
+	height:50px;
+}
 #PageTitle{
 	font-size:24pt;	
 	font-weight:bold;
 	background:white;
 	text-align:center;
-	border-bottom:5px #336600 solid;
+	padding:5px;
+}
+a:active{
+	color:#668040'
+}
+a:visited{
+	color:#668040;
+}
+a:hover{
+	color:#86BF30;
+}
+a:link{
+	color:#668040;
+}
+a.nav:active{
+	color:white;
+}
+a.nav:visited{
+	color:white;
+}
+a.nav:hover{
+	color:#668040;
 }
 table{
 	font-family:Verdana, sans-serif;

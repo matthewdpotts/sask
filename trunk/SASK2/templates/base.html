@@ -16,19 +16,29 @@
 </head>
 <body>
 	<div id="CenterColumn">
+		<div id="Topper" style="height:100px;filter: alpha(opacity=100); -moz-opacity: 1;">
+		</div>
+		<div id="Header">
+		CBioD
+		</div>
 		<div id="PageTitle">
 			{% block PageTitle %}CBioD Database Home{% endblock %}
 		</div>
 		<div id="LinkBox">
-			<a href="{% url Home %}">CBioD Database Home</a>
+			<a href="{% url Home %}" class="nav">CBioD Database Home</a>
 			|
-			<a href="{% url Add %}">Add New Data</a>
+			<a class="nav" href="{% url Add %}">Add New Data</a>
 			|
-			<a href="{% url Edit %}">Edit Existing Data</a>
+			<a class="nav" href="{% url Edit %}">Edit Existing Data</a>
 			|
-			<a href="{% url Export %}">Export Data</a>
+			<a class="nav" href="{% url Export %}">Export Data</a>
 		</div>
 		{% block Content %}{% endblock %}
+	<div id="Footer">
+		
+	</div>
+		<div id="Bottomer" style="height:100px;filter: alpha(opacity=100); -moz-opacity: 1;">
+		</div>
 	</div>
 </body>
 </html>
