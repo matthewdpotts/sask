@@ -12,7 +12,6 @@ class Tree(models.Model):
 	quadrate = models.ForeignKey(Quadrate)
 	tag = models.PositiveIntegerField(unique=True)
 	species = models.ForeignKey(Species)
-
 	class Admin:
 		pass;
 
@@ -21,6 +20,36 @@ class Tree(models.Model):
 
         class Meta:
 		pass
+
+class BigTreePlotSurvey(models.Model):
+	plot = models.ForeignKey(Plot)
+	recorder = models.ForeignKey(Person, null=True, related_name='BigTreePlotSurvey_recorder')
+	tagging = models.ForeignKey(Person, null=True, related_name='BigTreePlotSurvey_tagging')
+	date = models.DateField()
+
+class BigTreeSurvey(models.Model):
+	quadrate = models.ForeignKey(Quadrate)
+	tree_number = models.CharField(max_length=5, null=True)
+	identification = models.CharField(max_length = 10, null=True)
+	dbh = models.DecimalField(max_digits = 5, decimal_places = 1, null=True)
+	height = models.DecimalField(max_digits=4, decimal_places = 1, null=True)
+	remark = models.CharField(max_length=256, null=True)
+	bigtreeplotsurvey = models.ForeignKey(BigTreePlotSurvey)	
+
+class LittleTreePlotSurvey(models.Model):
+	plot = models.ForeignKey(Plot)
+	recorder = models.ForeignKey(Person, null=True, related_name='LittleTreePlotSurvey_recorder')
+	tagging = models.ForeignKey(Person, null=True, related_name='LittleTreePlotSurvey_tagging')
+	date = models.DateField()
+
+class LittleTreeSurvey(models.Model):
+	quadrate = models.ForeignKey(Quadrate)
+	tree_number = models.CharField(max_length=5, null=True)
+	identification = models.CharField(max_length = 10, null=True)
+	dbh = models.DecimalField(max_digits = 5, decimal_places = 1, null=True)
+	height = models.DecimalField(max_digits=4, decimal_places = 1, null=True)
+	remark = models.CharField(max_length=256, null=True)
+	littletreeplotsurvey = models.ForeignKey(LittleTreePlotSurvey)
 
 class TreeSurvey(models.Model):
 	status_choices = (
@@ -43,3 +72,35 @@ class TreeSurvey(models.Model):
 
 	class Meta:
 		pass
+
+class TreePlotSurvey(models.Model):
+	plot = models.ForeignKey(Plot, null=True)
+	recorder = models.ForeignKey(Person, null=True)
+	date = models.DateField(null=True)
+	
+	def __unicode__(self):
+		return u'%s (%s)' % (self.plot, self.date)
+
+	class Meta:
+		pass
+
+class TreeQuadrateSurvey(models.Model):
+	SHAPE_CHOICES = (
+		('convex','convex'),
+		('concave','concave'),
+		)
+	FINE_ROOT_CHOICES = (
+		('A','none'),
+		('B','some'),
+		('C','lots'),
+	)
+	SOIL_SAMPLE_CHOICES = (
+		('0','O.K.'),
+	)
+	treeplotsurvey = models.ForeignKey(TreePlotSurvey, null=True)
+	shape = models.CharField(max_length = 7, choices = SHAPE_CHOICES, null = True, blank = True)
+	fine_root = models.CharField(max_length = 1, choices = FINE_ROOT_CHOICES, null = True, blank = True)
+	GRS = models.CharField(max_length = 5, null = True, blank=False)
+	canopy_photo_number = models.IntegerField(null = True, blank=False)
+	soil_sample = models.CharField(max_length = 1, choices = SOIL_SAMPLE_CHOICES, null = True, blank = True)
+	quadrate = models.ForeignKey(Quadrate)

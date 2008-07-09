@@ -4,12 +4,14 @@ from django.contrib.auth.decorators import login_required
 from SASK2.plots.forms import *
 from SASK2.trees.forms import * 
 
-#@login_required
 def home(request):
-    return render_to_response('home/home.html')
+	return render_to_response('home/home.html')
 
 def Add(request):
-	return render_to_response('home/add.html')
+	PlotSelector1 = PlotSelectorForm(prefix=1)
+	PlotSelector2 = PlotSelectorForm(prefix=2)
+	PlotSelector3 = PlotSelectorForm(prefix=3)
+	return render_to_response('home/add.html', {'PlotSelector1':PlotSelector1,'PlotSelector2':PlotSelector2,'PlotSelector3':PlotSelector3})
 
 def Edit(request):
 	TSF = TreeSelectorForm()

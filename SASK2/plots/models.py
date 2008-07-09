@@ -4,6 +4,12 @@ from django import newforms as forms
         
 from SASK2.personnel.models import Person
 
+class Reserve(models.Model):
+	name = models.CharField(max_length=128)
+	def __unicode__(self):
+                return u'%s' % (self.name)
+	
+
 class Plot(models.Model):
         SLOPE_POS= (
                 ('RI', 'Ridge'),
@@ -12,14 +18,20 @@ class Plot(models.Model):
                 ('LO', 'Lower'),
                 ('VA', 'Valley'),
         )
-	
-	forest_reserve = models.CharField(max_length=20)
+	TYPES = (
+		('R','Ridge'),
+		('S','Slope'),
+		('V','Valley'),
+	)
+	number = models.PositiveIntegerField(null=True, blank=True)
+	reserve = models.ForeignKey(Reserve, null = True, blank=True)
 	compartment = models.PositiveIntegerField()
 	latitude = models.DecimalField(max_digits=5,decimal_places=2)
 	longitude = models.DecimalField(max_digits=10,decimal_places=5)
 	baseline_bearing = models.DecimalField(max_digits=10, decimal_places=5)
 	width = models.PositiveIntegerField()
 	length = models.PositiveIntegerField()
+	type = models.CharField(max_length = 1, choices = TYPES, null=True, blank=True)
 	"""
 	altitude_NE = models.DecimalField(max_digits=10, decimal_places=5)
 	altitude_SE = models.DecimalField(max_digits=10, decimal_places=5)
@@ -28,7 +40,7 @@ class Plot(models.Model):
 	"""
 
 	def __unicode__(self):
-                return u'%s %s %s' % (self.forest_reserve, self.latitude, self.longitude)
+                return u'%s %s %s' % (self.reserve, self.latitude, self.longitude)
 
 	class Admin:
 		pass
