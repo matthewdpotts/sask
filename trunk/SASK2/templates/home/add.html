@@ -1,15 +1,103 @@
 {% extends "base.html" %}
+
 {% block Title %}Add New Data{% endblock %}
 {% block PageTitle %}Add New Data{% endblock %}
-{%block Content%}
-<h2>Physical Data:</h2>
+
+{% block CSS %}
+#CenterColumn{
+	text-align:left;
+}
+{% endblock %}
+
+{% block JavaScript %}
+var PlotSelector1;
+var PlotSelector2;
+var PlotSelector3;
+window.onload = function () {
+	PlotSelector1 = document.getElementById('id_1-plot');
+	PlotSelector2 = document.getElementById('id_2-plot');
+	PlotSelector3 = document.getElementById('id_3-plot');
+	PlotSelector1.onchange = PlotSelectorChange1;
+	PlotSelector2.onchange = PlotSelectorChange2;
+	PlotSelector3.onchange = PlotSelectorChange3;
+}
+
+function PlotSelectorChange1(){
+	if (PlotSelector1.value == ""){
+		return;
+	}
+	location.href = "{% url NewTreePlotSurvey 0 %}" + PlotSelector1.value;
+}
+
+function PlotSelectorChange2(message){
+	if (PlotSelector2.value == ""){
+		return;
+	}
+	location.href = "{% url AddLittleTreeSurvey 0 %}" + PlotSelector2.value;
+}
+
+function PlotSelectorChange3(){
+	if (PlotSelector3.value == ""){
+		return;
+	}
+	location.href = "{% url AddBigTreeSurvey 0 %}" + PlotSelector3.value;
+}
+
+function TogglePlotSelector(n){
+	PlotSelectorDiv = document.getElementById('PlotSelectorDiv'+n)
+	if(PlotSelectorDiv.style.display == 'none'){
+		PlotSelectorDiv.style.display = 'block';
+	}
+	else{
+		PlotSelectorDiv.style.display = 'none';
+	}
+}
+{% endblock %}
+
+{% block Content %}
 <ul>
-<li><a href="{%url AddPlot %}">Add data about a new plot</a></li>
-<li><a href="{%url AddPlotSurvey%}">Add census data to an existing plot</a></li>
+	<li><h2>Physical Data:</h2></li>
+	<ul>
+		<li><a href="{% url AddPlot %}">Add data about a new plot</a></li>
+		<li><a href="{% url AddPlotSurvey %}">Add census data to an existing plot</a></li>
+	</ul>
+	<li><h2>Taxa Data:</h2></li>
+	<ul>
+		<li>Trees</li>
+		<ul>
+			<li><a href="javascript:TogglePlotSelector('1');">Add Plot Survey</a>
+			<div id="PlotSelectorDiv1" style="display:none;">
+			<ul>
+				<li>
+				choose plot:
+				{{PlotSelector1.plot}}
+				</li>
+			</ul>
+			</div>
+			</li>
+			<li><a href="javascript:TogglePlotSelector('2');">Add Seeding/Sapling Survey</a>
+			<div id="PlotSelectorDiv2" style="display:none;">
+			<ul>
+				<li>
+				choose plot:
+				{{PlotSelector2.plot}}
+				</li>
+			</ul>
+			</div>
+			</li>
+			<li><a href="javascript:TogglePlotSelector('3');">Add Tree (> 5cm) Survey</a>
+			<div id="PlotSelectorDiv3" style="display:none;">
+			<ul>
+				<li>
+				choose plot:
+				{{PlotSelector3.plot}}
+				</li>
+			</ul>
+			</div>
+			</li>
+			<li><a href="{% url NewTreeSurvey %}">Add tree survey</a></li>
+			<li><a href="{% url SecondTreeSurvey %}">Add a second tree survey</a></li>
+		</ul>
+	</ul>
 </ul>
-<h2>Taxa Data:</h2>
-<ul>
-<li><a href="{%url NewTreeSurvey%}">Add tree survey</a></li>
-<li><a href="{%url SecondTreeSurvey%}">Add a second tree survey</a></li>
-</ul>
-{%endblock%}
+{% endblock %}

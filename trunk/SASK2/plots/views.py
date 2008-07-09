@@ -17,6 +17,7 @@ def AddPlot(request):
 				return render_to_response('plots/add.html',{'PlotForm':PF,'PlotSurveyForm':PSF,'Message':Message,'ShowSurvey':True})
 			else:
 				plot = PF.save()
+				PopulatePlot(plot)
 				plotsurvey = PSF.save(commit=False)
 				plotsurvey.plot = plot
 				plotsurvey.save()
@@ -32,6 +33,7 @@ def AddPlot(request):
 			PF = PlotForm(data=request.POST)
 			if PF.is_valid():
 				plot = PF.save()
+				PopulatePlot(plot)
 				Message += 'Plot successfully saved: %s' % plot 
 				PF = PlotForm()
 				PSF = UnlinkedPlotSurveyForm()
@@ -44,6 +46,14 @@ def AddPlot(request):
 		PF = PlotForm()
 		PSF = UnlinkedPlotSurveyForm()	
 	return render_to_response('plots/add.html',{'PlotForm':PF,'PlotSurveyForm':PSF,'Message':Message})
+
+def PopulatePlot(plot):
+	for i in range(1,5):
+		subplot = Subplot(plot = plot, number = i)
+		subplot.save()
+		for j in range(1,5):
+			quadrate = Quadrate(subplot = subplot, number = j)
+			quadrate.save()
 
 def AddPlotSurvey(request):
 	Message = ''
