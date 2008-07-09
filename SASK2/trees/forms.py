@@ -7,15 +7,17 @@ class TreePlotSurveyForm(forms.ModelForm):
 	plot = forms.ModelChoiceField(Plot.objects.all(), widget=forms.HiddenInput())
 	recorder = forms.ModelChoiceField(Person.objects.all(), required=False)
 	date = forms.DateField(widget=forms.TextInput(attrs={'size':'10'}))
+	
 	class Meta:
 		model=TreePlotSurvey
+
 
 class TreeQuadrateSurveyForm(forms.ModelForm):
 	treeplotsurvey = forms.ModelChoiceField(TreePlotSurvey.objects.all(), widget=forms.HiddenInput(), required=False)
 	shape = forms.ChoiceField(choices = TreeQuadrateSurvey.SHAPE_CHOICES, required = False)
 	fine_root = forms.ChoiceField(choices = TreeQuadrateSurvey.FINE_ROOT_CHOICES, required = False)
-	GRS = forms.CharField(widget = forms.TextInput(attrs={'size':'5'}), required=False)
-	canopy_photo_number = forms.CharField(widget = forms.TextInput(attrs={'size':'3'}), required = False)
+	GRS = forms.DecimalField(widget = forms.TextInput(attrs={'size':'5'}), required=False)
+	canopy_photo_number = forms.IntegerField(widget = forms.TextInput(attrs={'size':'3'}), required = False)
 	soil_sample = forms.ChoiceField(choices = TreeQuadrateSurvey.SOIL_SAMPLE_CHOICES, required = False)
 	quadrate = forms.ModelChoiceField(Quadrate.objects.all(), widget=forms.HiddenInput())
 	q = Quadrate()

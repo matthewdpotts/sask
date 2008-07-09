@@ -86,15 +86,18 @@ class TreePlotSurvey(models.Model):
 
 class TreeQuadrateSurvey(models.Model):
 	SHAPE_CHOICES = (
+		('unknown', 'unknown'),
 		('convex','convex'),
 		('concave','concave'),
 		)
 	FINE_ROOT_CHOICES = (
+		('0','---'),
 		('A','none'),
 		('B','some'),
 		('C','lots'),
 	)
 	SOIL_SAMPLE_CHOICES = (
+		('1','---'),
 		('0','O.K.'),
 	)
 	treeplotsurvey = models.ForeignKey(TreePlotSurvey, null=True)

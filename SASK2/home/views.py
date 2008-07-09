@@ -1,4 +1,5 @@
 from django.shortcuts import get_object_or_404, render_to_response
+from django.db import connection
 from django.http import Http404, HttpResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from SASK2.plots.forms import *
@@ -21,4 +22,13 @@ def Edit(request):
 def Export(request):
 	MPSF = MultiplePlotSelectorForm()
 	return render_to_response('home/export.html', {'MultiplePlotSelectorForm':MPSF})
+
+def test(request):
+	cursor = connection.cursor()
+	cursor.execute('select * from ImageTest;')
+	row = cursor.fetchone()
+        response = HttpResponse(row[1])
+        response['Content-Type'] = 'image/jpeg'
+        #response['Content-disposition'] = 'Attachment; filename=frog.jpg'
+        return response 
 

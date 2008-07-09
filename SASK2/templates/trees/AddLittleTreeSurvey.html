@@ -4,6 +4,7 @@
 {% block Title %} Seedling/Saplings less than 5 cm{% endblock %}
 
 {% block Content %}
+{{Message}}
 <br>
 <form action="{% url AddLittleTreeSurvey 0 %}{{ plot.id }}" method="POST">
 
@@ -82,7 +83,7 @@
 		{% for Survey in OldTreeSurveys %}
 		<tr>
 			<td>{{ Survey.quadrate.subplot }}</td>
-			<td>1</td>
+			<td>{{ Survey.quadrate }}</td>
 			<td>{{ Survey.tree_number }}</td>
 			<td>{{ Survey.identification }}</td>
 			<td>{{ Survey.dbh }}</td>
