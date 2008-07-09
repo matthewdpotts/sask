@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+
+{% block PageTitle %}Tree Plot Survey{% endblock %}
+{% block Title %}Tree Plot Survey{% endblock %}
+
+{% block JavaScript %}
+var Status;
+window.onload = function () {
+	Status = document.getElementById('Status');
+}
+{% endblock %}
+
+{% block Content %}
+
+<form action="{% url NewTreePlotSurvey 0 %}{{plot.id}}" method="POST" name="TreePlotSurveyForm" id="TreePlotSurveyForm">
+
+<input type="hidden" name="TreePlotSurveyID" value="{{TreePlotSurveyID}}"/>
+{{TreePlotSurveyForm.plot}}
+<table>
+	
+	<tr>
+		<td>Forest Reserve:</td>
+		<td>{{plot.reserve}}</td>
+	</tr>
+	
+	<tr>
+		<td>compartment:</td>
+		<td>{{plot.compartment}}</td>
+	</tr>
+	
+	<tr>
+		<td>Plot type:</td>
+		<td>{{plot.get_type_display}}</td>
+	</tr>
+	
+	<tr>
+		<td>plot number:</td>
+		<td>{{plot.number}}</td>
+	</tr>
+
+	<tr>
+		<td>recorder:</td>
+		<td>{{TreePlotSurveyForm.recorder}}</td>
+	</tr>
+	
+	<tr>
+		<td>date of survey: </td>
+		<td>
+			{{TreePlotSurveyForm.date}}
+	        	<A HREF="#" onClick="Calendar.select(document.getElementById('id_date'),'CalendarAnchor','MM/dd/yyyy'); return false;" NAME="CalendarAnchor" ID="CalendarAnchor">calendar</A>
+			{{TreePlotSurveyForm.date.errors}}
+		</td>
+	</tr>
+
+</table>
+
+<br>
+
+<div id = "TreeQuadrateSurveyTable"> 
+
+<table>
+
+	<tr>
+		<td>Subplot</td>
+		<td>Quadrate</td>
+		<td>Convex/Concave</td>
+		<td>
+			Fine Root
+			<br/>
+			None, Some, Lots
+		</td>
+		<td>GRS Densitometer</td>
+		<td>Canopy Photo # (1.3 m)</td>
+		<td>Soil Sample #</td>
+	</tr>
+
+{% for form in TreeQuadrateSurveyForms %}
+	<tr>
+		<td>
+			{{form.q.subplot}}
+			{{form.quadrate}}
+		</td>
+		<td>
+			{{form.q}}
+		</td>
+		<td>
+			{{form.shape}}
+			{% if form.shape.errors %}
+			<br/>
+			{{ form.shape.errors %}
+			{% endif %}
+		</td>
+		<td>
+			{{form.fine_root}}
+			{% if form.fine_root.errors %}
+			<br/>
+			{{ form.fine_root.errors %}
+			{% endif %}
+		</td>
+		<td>
+			{{form.GRS}}	
+			{% if form.GRS.errors %}
+			<br/>
+			{{ form.GRS.errors %}
+			{% endif %}
+		</td>
+		<td>
+			{{form.canopy_photo_number}}
+			{% if form.canopy_photo.errors %}
+			<br/>
+			{{ form.canopy_photo.errors %}
+			{% endif %}
+		</td>
+		<td>
+			{{form.soil_sample}}
+			{% if form.soil_sample.errors %}
+			<br/>
+			{{ form.soil_sample.errors %}
+			{% endif %}
+		</td>
+	</tr>
+{% endfor %}
+
+</table>
+
+</div>
+
+<input type="submit" value="save"/>
+
+</form>
+
+<br/>
+
+<div id="Staus">{{Message}}</div>
+
+<a href="{% url Add %}">return to add data</a>
+
+<br/>
+
+{% endblock %}
+
