@@ -35,18 +35,21 @@ def NewTreePlotSurvey(request, PlotID=''):
 			if Form.is_valid() and tpsf.is_valid():
 				tqs = Form.save(commit = False)
 				tqs.treeplotsurvey = tps
-				if tqs.GRS == '':
-					tqs.GRS = None
-				if tqs.canopy_photo_number == '':
-					tqs.canopy_photo_number = None
+				#if tqs.GRS == '':
+				#	tqs.GRS = None
+				#if tqs.canopy_photo_number == '':
+				#	tqs.canopy_photo_number = None
 				query = TreeQuadrateSurvey.objects.filter(treeplotsurvey=tps).filter(quadrate=quadrate)
 				if len(query) == 1:
 					tqs.id = query[0].id
 				tqs.save()
 			else:
 				Message = 'The data could not be saved; please check for errors.'
+			if len(Message) == 0:
+				Message = 'The data were successfully saved.'
 			Forms.append(Form)
 		return render_to_response('trees/NewTreePlotSurvey.html', {'Message':Message,'plot':plot,'TreePlotSurveyID':TreePlotSurveyID,'TreeQuadrateSurveyForms':Forms,'TreePlotSurveyForm':tpsf})
+
 	TreePlotSurveyID = ''	
 	subplots = Subplot.objects.filter(plot=plot)
 	quadrates = []
@@ -56,11 +59,17 @@ def NewTreePlotSurvey(request, PlotID=''):
 	for quadrate in quadrates:
 		prefix = str(quadrate.id)
 		subplot = quadrate.subplot
-		tqsf = TreeQuadrateSurveyForm(data={prefix+'-quadrate':quadrate.id}, prefix=prefix)
+		#tqsf = TreeQuadrateSurveyForm(data={prefix+'-quadrate':quadrate.id}, prefix=prefix)
+		if quadrate.number == 1:
+			initial_soil_sample = 0
+		else:
+			initial_soil_sample = 1
+		tqsf = TreeQuadrateSurveyForm(initial={'quadrate':quadrate.id, 'soil_sample':initial_soil_sample}, prefix=prefix)
 		tqsf.q = quadrate
 		treequadratesurveyforms.append(tqsf)
-	tpsf = TreePlotSurveyForm(data = {'plot':plot.id})
-	return render_to_response('trees/NewTreePlotSurvey.html', {'TreePlotSurveyID':TreePlotSurveyID,'plot':plot,'TreeQuadrateSurveyForms':treequadratesurveyforms,'TreePlotSurveyForm':tpsf})
+		
+	tpsf = TreePlotSurveyForm(initial = {'plot':plot.id})
+	return render_to_response('trees/NewTreePlotSurvey.html', {'Message':Message,'TreePlotSurveyID':TreePlotSurveyID,'plot':plot,'TreeQuadrateSurveyForms':treequadratesurveyforms,'TreePlotSurveyForm':tpsf})
 
 def AddBigTreeSurvey(request, PlotID=''):
 	Message = ''
@@ -117,7 +126,7 @@ def AddLittleTreeSurvey(request, PlotID=''):
 				quadrate = Quadrate.objects.get(subplot = subplot, number=request.POST.get('q'))
 				TreeSurvey.quadrate = quadrate
 				TreeSurvey.save()
-				Message += 'Tree Survey Saved'
+				Message += 'Tree Survey Saved' + str(quadrate.id)
 		else:
 			Message += "Survey Not Saved"
 	else:

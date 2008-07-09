@@ -11,7 +11,6 @@ window.onload = function () {
 {% endblock %}
 
 {% block Content %}
-
 <form action="{% url NewTreePlotSurvey 0 %}{{plot.id}}" method="POST" name="TreePlotSurveyForm" id="TreePlotSurveyForm">
 
 <input type="hidden" name="TreePlotSurveyID" value="{{TreePlotSurveyID}}"/>
@@ -133,9 +132,10 @@ window.onload = function () {
 
 <div id="Staus">{{Message}}</div>
 
-<a href="{% url Add %}">return to add data</a>
-
 <br/>
+
+
+<a href="{% url Add %}">return to add data</a>
 
 {% endblock %}
 
