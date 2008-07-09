@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+
+{% block PageTitle %} Seedling/Saplings less than 5 cm{% endblock %}
+{% block Title %} Seedling/Saplings less than 5 cm{% endblock %}
+
+{% block Content %}
+<br>
+<form action="{% url AddLittleTreeSurvey 0 %}{{ plot.id }}" method="POST">
+
+<input type="hidden" name="SurveyID" value="{{ SurveyID }}"/>
+
+{{ SurveyForm.plot }}
+
+<div id="TopTable">
+	<table>
+
+		<tr>
+			<td>Reserve:</td>
+			<td>{{ plot.reserve }}</td>
+		</td>
+	
+		<tr>
+			<td>Compartment:</td>
+			<td>{{ plot.compartment }}</td>
+		</tr>
+
+		<tr>
+			<td>Plot type:</td>
+			<td>{{ plot.get_type_display }}</td>
+		</tr>
+
+		<tr>
+			<td>Plot number:</td>
+			<td>{{ plot.number }}</td>
+		</tr>
+		
+		<tr>
+			<td>Recorder:</td>
+			<td>{{ SurveyForm.recorder }}</td>
+		</tr>
+		
+		<tr>
+			<td>Dbh/tagging:</td>
+			<td>{{ SurveyForm.tagging }}</td>
+		</tr>
+		
+		<tr>
+			<td>Date:</td>
+			<td>{{ SurveyForm.date }}
+	        	<A HREF="#" onClick="Calendar.select(document.getElementById('id_date'),'CalendarAnchor','MM/dd/yyyy'); return false;" NAME="CalendarAnchor" ID="CalendarAnchor">calendar</A>
+			{{ SurveyForm.date.errors }}
+			</td>
+		</tr>
+
+	</table>
+</div>
+
+<div id="DataTable">
+	<table>
+		
+		<tr>
+			<td>Subplot</td>
+			<td>Quadrate</td>
+			<td>Tree #</td>
+			<td>Identification</td>
+			<td>DBH (cm)</td>
+			<td>Height (m)</td>
+			<td>Remark</td>
+		</tr>
+
+		<tr>
+			<td>{{ TreeSurveyForm.subplot }}{{ TreeSurveyForm.subplot.errors }}</td>
+			<td>{{ TreeSurveyForm.q }}{{ TreeSurveyForm.q.errors }}</td>
+			<td>{{ TreeSurveyForm.tree_number }}{{ TreeSurveyForm.tree_number.errors }}</td>
+			<td>{{ TreeSurveyForm.identification }}{{ TreeSurveyForm.identification.errors }}</td>
+			<td>{{ TreeSurveyForm.dbh }}{{ TreeSurveyForm.dbh.errors }}</td>
+			<td>{{ TreeSurveyForm.height }}{{ TreeSurveyForm.height.errors }}</td>
+			<td>{{ TreeSurveyForm.remark }}{{ TreeSurveyForm.remark.errors }}</td>
+			<td><input type="Submit" value="save" /></td>
+		</tr>
+		
+		{% for Survey in OldTreeSurveys %}
+		<tr>
+			<td>{{ Survey.quadrate.subplot }}</td>
+			<td>1</td>
+			<td>{{ Survey.tree_number }}</td>
+			<td>{{ Survey.identification }}</td>
+			<td>{{ Survey.dbh }}</td>
+			<td>{{ Survey.height }}</td>
+			<td>{{ Survey.remark }}</td>
+			<td></td>
+		</tr>
+			
+		{% endfor %}
+
+	</table>
+</div>
+
+</form>
+
+<br/>
+
+<a href="{% url Add %}">Back to Add Data</a>
+
+{% endblock %}
