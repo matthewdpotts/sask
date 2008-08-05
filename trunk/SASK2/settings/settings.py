@@ -1,15 +1,20 @@
 # Django settings for SASK1 project.
-#
+
 DEBUG = True
 TEMPLATE_DEBUG = DEBUG
-
+ 
 ADMINS = (
     # ('Your Name', 'your_email@domain.com'),
 )
 
+NAVBAR_TREE_MAX_DEPTH = 3
+NAVBAR_TREE_SHOW_DEPTH = 0
+NAVBAR_TREE_MARK_SELECTED = True
+
+
 MANAGERS = ADMINS
 
-DATABASE_ENGINE = 'postgresql'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+DATABASE_ENGINE = 'postgresql_psycopg2'           # 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
 DATABASE_NAME = 'SASK'             # Or path to database file if using sqlite3.
 DATABASE_USER = 'dbuser'             # Not used with sqlite3.
 DATABASE_PASSWORD = 'dbpassword'         # Not used with sqlite3.
@@ -35,12 +40,12 @@ USE_I18N = True
 
 # Absolute path to the directory that holds media.
 # Example: "/home/media/media.lawrence.com/"
-MEDIA_ROOT = '/media/'
+MEDIA_ROOT = '/var/django_root/django_projects/SASK2/SASK_media'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
-MEDIA_URL = ''
+MEDIA_URL = 'http://129.171.42.5/SASK_media/'
 
 # URL prefix for admin media -- CSS, JavaScript and images. Make sure to use a
 # trailing slash.
@@ -67,7 +72,7 @@ MIDDLEWARE_CLASSES = (
 
 ROOT_URLCONF = 'SASK2.urls'
 
-TEMPLATE_DIRS = ("/var/django_root/django_projects/SASK2/templates", "/var/django_root/django_projects/SASK2/",
+TEMPLATE_DIRS = ("/var/django_root/django_projects/SASK2/templates", "/var/django_root/django_projects/SASK2/","/usr/lib/python2.5/site-packages/treemenus/templates",
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
@@ -81,7 +86,20 @@ INSTALLED_APPS = (
     'SASK2.trees',
     'SASK2.personnel',
     'SASK2.plots',
+    'SASK2.DocumentRepository',
     'SASK2.species',
 	'SASK2.data',
-    'django.contrib.admin'
+	'SASK2.home',
+	'SASK2.physical',
+    'django.contrib.admin',
+	'treemenus',
 )
+
+
+TEMPLATE_CONTEXT_PROCESSORS = ("django.core.context_processors.auth",
+"django.core.context_processors.debug",
+"django.core.context_processors.i18n",
+"django.core.context_processors.media",
+)
+
+

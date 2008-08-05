@@ -1,6 +1,6 @@
 from SASK2.trees.models import * 
 from SASK2.personnel.models import Person
-from django import newforms as forms
+from django import forms
 from SASK2.plots.models import *
 
 class TreePlotSurveyForm(forms.ModelForm):

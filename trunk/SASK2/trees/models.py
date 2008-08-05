@@ -1,24 +1,46 @@
-from django.db import models
-from django.newforms import ModelForm
-from django import newforms as forms
+from django.contrib.gis.db.models import *
 
-from SASK2.plots.models import Plot, Subplot, Quadrate
-from SASK2.species.models import Species, TreeSpecies
-from SASK2.personnel.models import Person
+from SASK2.physical.models import *
+from SASK2.species.models import *
+from SASK2.personnel.models import *
 
-class Tree(models.Model):
-	plot = models.ForeignKey(Plot)
-	subplot = models.ForeignKey(Subplot)
-	quadrate = models.ForeignKey(Quadrate)
-	tag = models.PositiveIntegerField(unique=True)
-	species = models.ForeignKey(Species)
+class Tree(Model):
+	
+	quadrate = models.ForeignKey(Quadrate, null=True)
+	species = models.ForeignKey(Species, null=True)
+	
+	Tag = CharField(max_length=128, unique=True, null=True)
+	
+	Point = PointField(null=True)
+
+	objects = GeoManager()
+		
 	class Admin:
-		pass;
+		pass
 
         def __unicode__(self):
                 return u'%s' % (self.tag)
 
-        class Meta:
+class TreeSurvey(Model):
+
+	StatusChoices = (
+		('A', 'alive'),
+		('D', 'dead'),
+		('U', 'unknown'),
+	)
+
+	tree = ForeignKey(Tree)
+	recorder = ForeignKey(Person, null=True, related_name='TreeSurvey_recorder')
+	tagger = ForeignKey(Person, null=True, related_name='TreeuSurvey_tagger')
+
+	StartDate = DateField()
+	EndDate = DateField()
+	DBH = DecimalField(max_digits = 5, decimal_places = 1, null = True)	
+	Height = DecimalField(max_digits = 4, decimal_places = 1, null=True)
+	Remark = CharField(max_length=256, null=True)
+	Status = CharField(max_length=1, choices=StatusChoices, null=True)
+
+	class Admin:
 		pass
 
 class BigTreePlotSurvey(models.Model):

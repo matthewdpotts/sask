@@ -56,11 +56,13 @@ function TogglePlotSelector(n){
 
 {% block Content %}
 <ul>
+{% if user.is_staff %}
 	<li><h2>Physical Data:</h2></li>
 	<ul>
 		<li><a href="{% url AddPlot %}">Add data about a new plot</a></li>
 		<li><a href="{% url AddPlotSurvey %}">Add census data to an existing plot</a></li>
 	</ul>
+{% endif %}
 	<li><h2>Taxa Data:</h2></li>
 	<ul>
 		<li>Trees</li>

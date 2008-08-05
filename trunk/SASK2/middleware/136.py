@@ -43,9 +43,13 @@ class RequireLoginMiddleware(object):
         self.require_login_path = getattr(settings, 'REQUIRE_LOGIN_PATH', '/accounts/login/')
     
     def process_request(self, request):
+	if request.path.endswith('.css'):
+		return None
         if request.path != self.require_login_path and request.user.is_anonymous():
             if request.POST:
                 return login(request)
             else:
-                return HttpResponseRedirect('%s?next=%s' % (self.require_login_path, request.path))
+		#always redirect logged-in user to the home page
+                #return HttpResponseRedirect('%s?next=%s' % (self.require_login_path, request.path))
+                return HttpResponseRedirect('%s?next=%s' % (self.require_login_path, "/"))
                 
