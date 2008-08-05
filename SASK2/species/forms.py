@@ -1,5 +1,5 @@
 from SASK2.species.models import Species
-from django import newforms as forms
+from django import forms
 
 class SpeciesForm(forms.ModelForm):
 	

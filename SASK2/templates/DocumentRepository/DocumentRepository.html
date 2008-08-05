@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% block PageTitle %}Document Repository{% endblock %}
+{% block Content %}
+<h2>Document Repository</h2>
+{% if user.is_staff %}
+<div style="border:1px green solid;padding:10px;width:500px;margin:0 auto;margin-top:30px;margin-bottom:30px;text-align:center;">
+	Upload a document:
+	<br/><br/>
+	<form action="." method="POST" enctype="multipart/form-data" >
+	<table>
+		{{ documentform.as_table }}
+	</table>
+	<br/>
+	<input type="submit" value="upload"/>
+	</form>
+	<br/>
+	{{ Message }}
+</div>
+{% endif %}
+
+<div style="border:1px solid green;width:500px;text-align:center;margin:0 auto;margin-top:30px;margin-bottom:20px;">
+Search Filters:
+<br/>
+<form action="." method="GET">
+<table align=center>
+	{{ documentfilterform.as_table }}
+</table>
+<input type="submit" value="apply filters">
+<input type="submit" onclick="" value="clear filters">
+</form>
+</div>
+
+<div id="DocumentTableDiv" style="margin:0 auto;text-align:center;">
+	<table align=CENTER>
+
+		<tr>
+			<td>Title</td>
+			<td>Author</td>
+		</tr>
+
+		{% for result in results %}
+		<tr>
+			<td><a href="{{ result }}">{{ result.title }}</a></td>
+			<td>{{ result.author }}</td>		
+		</tr>
+		{% endfor %}
+
+	</table>
+</div>
+{% endblock %}

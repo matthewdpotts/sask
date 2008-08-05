@@ -1,0 +1,15 @@
+{% load tree_menu_tags %}
+<li class="MenuItem-{{ menu_item.level }}">
+	{% if menu_item.named_url %}
+		<a href="{% reverse_named_url menu_item.named_url %}">{{ menu_item.caption }}</a>
+	{% else %}
+		<a href="{{ menu_item.url }}">{{ menu_item.caption }}</a>
+	{% endif %}
+	{% if menu_item.hasChildren %}
+		<ul class="Menu-{{ menu_item.level }}">
+			{% for child in menu_item.children %}
+				{% show_menu_item child %}
+			{% endfor %}
+		</ul>
+	{% endif %}
+</li>

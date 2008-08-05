@@ -1,121 +1,16 @@
-{% extends "loginbase.html" %}
-{% block Title %}CBioD Database Login{% endblock %}
-{% block PageTitle %}CBioD Database Login{% endblock %}
-{% block CSS %}
-body{
-	background:#C0C0C0;
-	margin: 0 0 0 0;
-	padding: 0 0 0 0;
-	text-align:center;
-	font-family:Verdana, sans-serif;
-	font-size:10pt;
-}
-
-#LinkBox{
-	color:white;
-	font-weight:bold;
-	background:#86BF30;
-	padding:10px;
-}
-#Bottomer{
-	margin:0;
-	background-color:#C0C0C0;
-	padding:0;
-	background-image:
-	url('/SASK_media/bottomfade.png');
-	background-repeat:repeat;
-}
-#Topper{
-	margin:0;
-	background-color:#C0C0C0;
-	padding:0;
-	background-image:
-	url('/SASK_media/topfade.png');
-	background-repeat:repeat;
-}
-#Header{
-	background:#86BF30;
-	color:white;
-	font-size:24pt;
-	text-align:left;
-	font-weight:bold;
-}
-
-#CenterColumn{
-	width:800px;
-	background:white;
-	margin:0 auto;
-	padding:0;
-	text-align:center;
-}
-#Footer{
-	background:#86BF30;
-	color:white;
-	font-weight:bold;
-	height:50px;
-}
-#PageTitle{
-	font-size:24pt;	
-	font-weight:bold;
-	background:white;
-	text-align:center;
-	padding:5px;
-}
-a:active{
-	color:#668040'
-}
-a:visited{
-	color:#668040;
-}
-a:hover{
-	color:#86BF30;
-}
-a:link{
-	color:#668040;
-}
-a.nav:active{
-	color:white;
-}
-a.nav:visited{
-	color:white;
-}
-a.nav:hover{
-	color:#668040;
-}
-table{
-	font-family:Verdana, sans-serif;
-	font-size:8pt;
-}
-
-input .text{
-	font-family:Verdana, sans-serif;
-	font-size:10pt;
-	size:5;
-}
-.Error{
-	color:red;
-	font-weight:bold;
-}
-.Message{
-	font-weight:bold;
-}
-#FormContainer{
-	margin: 0 auto;
-	margin-top:15px;
-	border: 1px orange solid;
-	padding:15px;
-	width:700px;
-}
-
-{% endblock %}
+{% extends "base.html" %}
+{% block Title %}CBioD Home{% endblock %}
+{% block WindowTitle %}CBioD Home{% endblock %}
 {%block Content%}
 
 {% if form.has_errors %}
 <p>Your username and password didn't match. Please try again.</p>
 {% endif %}
 
+<h2>Please log in.</h2>
+
 <form method="post" action=".">
-<table>
+<table align="center">
 <tr><td><label for="id_username">Username:</label></td><td>{{ form.username }}</td></tr>
 <tr><td><label for="id_password">Password:</label></td><td>{{ form.password }}</td></tr>
 </table>
@@ -124,4 +19,6 @@ input .text{
 <input type="hidden" name="next" value="{{ next }}" />
 </form>
 
-{%endblock%}
+{% endblock %}
+
+

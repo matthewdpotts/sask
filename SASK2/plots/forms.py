@@ -1,6 +1,6 @@
 from SASK2.plots.models import *
-from django import newforms as forms
-from django.newforms import models
+from django import forms
+from forms import models
 
 class PlotForm(forms.ModelForm):
 	

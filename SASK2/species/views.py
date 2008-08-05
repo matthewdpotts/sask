@@ -5,9 +5,17 @@ from django.core.urlresolvers import reverse
 from SASK2.trees.models import Species, TreeSpecies
 from SASK2.species.forms import * 
 from django.http import HttpResponse
+from django.template import RequestContext
 
 def Home(request):
 	return render_to_response("species/home.html")
+
+def Add(request):
+	return render_to_response("species/add.html", context_instance=RequestContext(request))
+
+def Edit(request):
+	return render_to_response("species/edit.html", context_instance=RequestContext(request))
+
 
 def GetSpeciesForm(request):
 	if request.method == 'POST' and request.POST.get('BlankFormRequest','') != 'True':

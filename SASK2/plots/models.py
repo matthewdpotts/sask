@@ -1,6 +1,6 @@
 from django.db import models
-from django.newforms import ModelForm
-from django import newforms as forms
+from django import forms
+#from forms import ModelForm
         
 from SASK2.personnel.models import Person
 
