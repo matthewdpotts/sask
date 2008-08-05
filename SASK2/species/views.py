@@ -14,7 +14,7 @@ def Add(request):
 	Message = ''
 	speciesform = SpeciesForm()
 	if request.method == 'POST':
-		speciesform = SpeciesForm(data = request)
+		speciesform = SpeciesForm(request.post)
 		if speciesform.is_valid():
 			speciesform.save()
 			speciesform = SpeciesForm()
