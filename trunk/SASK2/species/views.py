@@ -11,8 +11,18 @@ def Home(request):
 	return render_to_response("species/home.html")
 
 def Add(request):
+	Message = ''
 	speciesform = SpeciesForm()
-	return render_to_response("species/add.html", {'speciesform':speciesform}, context_instance=RequestContext(request))
+	if request.method == 'POST':
+		speciesform = SpeciesForm(request)
+		if speciesform.is_valid():
+			speciesform.save()
+			speciesform = SpeciesForm()
+			Message += 'The new species was saved successfully.'
+	return render_to_response("species/add.html", 
+							  {'speciesform':speciesform,
+							   'Message':Message,}, 
+							  context_instance=RequestContext(request))
 
 def Edit(request):
 	return render_to_response("species/edit.html", context_instance=RequestContext(request))
