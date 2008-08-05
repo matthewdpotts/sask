@@ -11,7 +11,8 @@ def Home(request):
 	return render_to_response("species/home.html")
 
 def Add(request):
-	return render_to_response("species/add.html", context_instance=RequestContext(request))
+	speciesform = SpeciesForm()
+	return render_to_response("species/add.html", {'speciesform':speciesform}, context_instance=RequestContext(request))
 
 def Edit(request):
 	return render_to_response("species/edit.html", context_instance=RequestContext(request))
